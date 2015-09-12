@@ -1,0 +1,36 @@
+add run entities:
+  title: 'Create new Run entities'
+
+administer run entities:
+  title: 'Administer Run entities'
+  description: 'Allow to access the administration form to configure Run entities.'
+
+delete run entities:
+  title: 'Delete Run entities'
+
+edit run entities:
+  title: 'Edit Run entities'
+
+view run entities:
+  title: 'View Run entities'
+add train entities:
+  title: 'Create new Train entities'
+
+add passenger entities:
+  title: 'Create new Passenger entities'
+
+administer passenger entities:
+  title: 'Administer Passenger entities'
+  description: 'Allow to access the administration form to configure Passenger entities.'
+
+delete passenger entities:
+  title: 'Delete Passenger entities'
+
+edit passenger entities:
+  title: 'Edit Passenger entities'
+
+view passenger entities:
+  title: 'View Passenger entities'
+add default entity entities:
+  title: 'Create new Default entity entities'
+

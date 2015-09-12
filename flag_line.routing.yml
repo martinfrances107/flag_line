@@ -1,0 +1,140 @@
+
+flag_line.handbook_index:
+  path: '/flag_line/handbook'
+  defaults:
+    _controller: '\Drupal\flag_line\Controller\Handbook::index'
+    _title: 'Senario Testing'
+  requirements:
+    _permission: 'access content'
+
+# Run routing definition
+entity.run.canonical:
+  path: '/admin/run/{run}'
+  defaults:
+    _entity_view: 'run'
+    _title: 'Run'
+  requirements:
+    _entity_access: 'run.view'
+
+entity.run.collection:
+  path: '/admin/run'
+  defaults:
+    _entity_list: 'run'
+    _title: 'Run list'
+  requirements:
+    _permission: 'view run entities'
+
+entity.run.add_form:
+  path: '/admin/run/add'
+  defaults:
+    _entity_form: run.add
+    _title: 'Add Run'
+  requirements:
+    _permission: 'add run entities'
+
+entity.run.edit_form:
+  path: '/admin/run/{run}/edit'
+  defaults:
+    _entity_form: run.edit
+    _title: 'Edit Run'
+  requirements:
+    _permission: 'edit run entities'
+
+entity.run.delete_form:
+  path: '/admin/run/{run}/delete'
+  defaults:
+    _entity_form: run.delete
+    _title: 'Delete Run'
+  requirements:
+    _permission: 'delete run entities'
+
+run.settings:
+  path: 'admin/structure/run'
+  defaults:
+   _form: '\Drupal\flag_line\Entity\Form\RunSettingsForm'
+   _title: 'Run settings'
+  requirements:
+    _permission: 'administer run entities'
+
+# PassengerType routing definition
+entity.passenger_type.collection:
+  path: '/admin/structure/passenger_type'
+  defaults:
+    _entity_list: 'passenger_type'
+    _title: 'Passenger type'
+  requirements:
+    _permission: 'administer site configuration'
+
+entity.passenger_type.add_form:
+  path: '/admin/structure/passenger_type/add'
+  defaults:
+    _entity_form: 'passenger_type.add'
+    _title: 'Add Passenger type'
+  requirements:
+    _permission: 'administer site configuration'
+
+entity.passenger_type.edit_form:
+  path: '/admin/structure/passenger_type/{passenger_type}'
+  defaults:
+    _entity_form: 'passenger_type.edit'
+    _title: 'Edit Passenger type'
+  requirements:
+    _permission: 'administer site configuration'
+
+entity.passenger_type.delete_form:
+  path: '/admin/structure/passenger_type/{passenger_type}/delete'
+  defaults:
+    _entity_form: 'passenger_type.delete'
+    _title: 'Delete Passenger type'
+  requirements:
+    _permission: 'administer site configuration'
+
+
+# Passenger routing definition
+entity.passenger.canonical:
+  path: '/admin/passenger/{passenger}'
+  defaults:
+    _entity_view: 'passenger'
+    _title: 'Passenger'
+  requirements:
+    _entity_access: 'passenger.view'
+
+entity.passenger.collection:
+  path: '/admin/passenger'
+  defaults:
+    _entity_list: 'passenger'
+    _title: 'Passenger list'
+  requirements:
+    _permission: 'view passenger entities'
+
+entity.passenger.add_form:
+  path: '/admin/passenger/add'
+  defaults:
+    _entity_form: passenger.add
+    _title: 'Add Passenger'
+  requirements:
+    _permission: 'add passenger entities'
+
+entity.passenger.edit_form:
+  path: '/admin/passenger/{passenger}/edit'
+  defaults:
+    _entity_form: passenger.edit
+    _title: 'Edit Passenger'
+  requirements:
+    _permission: 'edit passenger entities'
+
+entity.passenger.delete_form:
+  path: '/admin/passenger/{passenger}/delete'
+  defaults:
+    _entity_form: passenger.delete
+    _title: 'Delete Passenger'
+  requirements:
+    _permission: 'delete passenger entities'
+
+passenger.settings:
+  path: 'admin/structure/passenger'
+  defaults:
+   _form: '\Drupal\flag_line\Entity\Form\PassengerSettingsForm'
+   _title: 'Passenger settings'
+  requirements:
+    _permission: 'administer passenger entities'

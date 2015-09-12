@@ -1,0 +1,14 @@
+{
+  "name": "drupal/flag/flag_line",
+  "type": "drupal-module",
+  "description": "Seneraio testing",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "http://drupal.org/project/flag",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/flag_line",
+    "source": "http://cgit.drupalcode.org/flag_line"
+  },
+  "require": { }
+}

@@ -1,0 +1,21 @@
+entity.run.add_form:
+  route_name: entity.run.add_form
+  title: 'Add Run'
+  appears_on:
+    - entity.run.collection
+    - entity.run.canonical
+
+entity.passenger_type.add_form:
+  route_name: 'entity.passenger_type.add_form'
+  title: 'Add Passenger type'
+  appears_on:
+    - entity.passenger_type.collection
+
+entity.passenger.add_form:
+  route_name: entity.passenger.add_form
+  title: 'Add Passenger'
+  appears_on:
+    - entity.passenger.collection
+    - entity.passenger.canonical
+
+

@@ -1,0 +1,16 @@
+services:
+  flag_line.station_manager:
+    class: Drupal\flag_line\StationManager
+    arguments: ['@queue', '@logger.channel.station_activity']
+
+  flag_line.train_manager:
+    class: Drupal\flag_line\TrainManager
+    arguments: ['@logger.channel.train_activity']
+
+  logger.channel.station_activity:
+    parent: logger.channel_base
+    arguments: ['Station Notice']
+
+  logger.channel.train_activity:
+    parent: logger.channel_base
+    arguments: ['Train Service']

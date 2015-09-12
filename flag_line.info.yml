@@ -1,0 +1,7 @@
+name: flag_line
+type: module
+description: Seneraio testing
+core: 8.x
+package: Flags
+dependencies:
+  - flag

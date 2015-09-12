@@ -1,0 +1,73 @@
+<p>The goal of this module is to gain confidence in the integrity of flag
+  service and provide a testing enviroment to evaluate its performance.
+</p>
+<h2>Properties of a senario</h2>
+<ul>
+  <li>
+    A never ending sequence of random tasks to be performed by the service.
+  </li>
+  <li>
+    Scales in complexity - to stress the infrasture under load.
+  </li>
+  <li>
+    The task should be pseudo randomly generated from a constant seed, to allow
+    the perfmance of changes in the internals of the service to be compared.
+  </li>
+</ul>
+<p>
+  The test will never complete, but confidance in the service under test grows
+  as more tasks are completed correctly. The infrastruce under load could be an
+  enterprise grade database server or humble a raspberry pi with a small memory
+  card running a soak test.
+</p>
+<h1>Senerio: Animal Railway</h1>
+<p>
+   The railway operates using flags as tickets. Having animals as passengers
+   allows for a variety of entity types to be flagged.
+</p>
+<h2>The railway</h2>
+<ul>
+  <li>
+    A railway with 10 stations.
+  </li>
+  <li>
+    At regular intervals a batch animals is created and given a tickets to ride.
+    [The animal type, and station source and destination are all assigned at
+    random.]
+  </li>
+  <li>
+    At regular intervals eastbound and westbound train services are run
+    to move passengers.
+  </li>
+  <li>
+    The life cycle of passengers and trains is predictable and finite.
+  </li>
+</ul>
+<h2>Operation: When a train enters a station</h2>
+<ul>
+  <li>All passengers boarding get their ticket flagged.</li>
+  <li>All passengers leaving get their ticket unflagged.</li>
+  <li>All passenger boarding, are flagged as being on the train.</li>
+  <li>All passenger leaving, are unflagged as being on the train.</li>
+</ul>
+<h1>Ingegrity checks</h1>
+<p>
+  The integrity checks are nothing more than those cross checks that happend on
+  real train networks.
+</p>
+<ul>
+  <li>
+    After a train has arrived at the last stop and unloads
+    - there <em>should</em> be no passengers flaged as on the train.
+  </li>
+  <li>
+    The number of passenger on all trains <em>should</em> be equal to the
+    number of tickets flagged.
+  </li>
+</ul>
+<h1>Scaling</h1>
+<p>
+  To increase the complexity - run more trains through more stations, with more
+  passegners.
+</p>
+

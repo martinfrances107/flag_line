@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file
+ * Contains flag_line.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function flag_line_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the flag_line module.
+    case 'help.page.flag_line':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Seneraio testing') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function flag_line_theme() {
+
+  return [
+    'run' => [
+      'render element' => 'elements',
+      'file' => 'run.page.inc',
+      'template' => 'run',
+    ],
+    'flag_line_handbook' => [
+      'variables' => [
+        'a' => 'apple',
+      ],
+    ],
+  ];
+}
