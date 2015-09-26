@@ -39,5 +39,13 @@ function flag_line_theme() {
         'a' => 'apple',
       ],
     ],
+    'scoreboard' => [
+      'variables' => array(
+        'numTicketsIssued'    => 0,
+        'numJourneysComplete' => 0,
+        'numPassengersOnPlatforms' => 0,
+        'numPassengersOnTrains' => 0,
+      ),
+    ],
   ];
 }
