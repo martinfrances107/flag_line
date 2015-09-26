@@ -5,18 +5,27 @@
  *
  * This template is used when viewing Run pages.
  *
- *
- * Available variables:
- * - content: A list of content items. Use 'content' to print all content, or
- * - attributes: HTML attributes for the container element.
- *
- * @see template_preprocess_run()
- *
  * @ingroup themeable
  */
 #}
-<div{{ attributes.addClass('run') }}>
-  {% if content %}
-    {{- content -}}
-  {% endif %}
-</div>
+
+<table>
+  <th>Count</th>
+  <th>Value</th>
+  <tr>
+    <td>Number of tickets issued.</td>
+    <td>{{numTicketsIssued}}</td>
+  </tr>
+  <tr>
+    <td>Number of journeys completed.</td>
+    <td>{{numJourneysComplete}}</td>
+  </tr>
+    <tr>
+    <td>Number of passengers on waiting on Platforms.</td>
+    <td>{{numPassengersOnPlatforms}}</td>
+  </tr>
+    <tr>
+    <td>Number of passengers on trains.</td>
+    <td>{{numPassengersOnTrains}}</td>
+  </tr>
+</table>

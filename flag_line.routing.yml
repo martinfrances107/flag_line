@@ -138,3 +138,11 @@ passenger.settings:
    _title: 'Passenger settings'
   requirements:
     _permission: 'administer passenger entities'
+
+flag_line.scoreboard_controller_index:
+  path: '/flag_line/scoreboard/{run}'
+  defaults:
+    _controller: '\Drupal\flag_line\Controller\ScoreboardController::index'
+    _title: 'Scoreboard'
+  requirements:
+    _permission: 'access content'

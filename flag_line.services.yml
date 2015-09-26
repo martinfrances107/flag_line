@@ -7,6 +7,10 @@ services:
     class: Drupal\flag_line\TrainManager
     arguments: ['@logger.channel.train_activity']
 
+  flag_line.passenger_count_manager:
+    class: Drupal\flag_line\PassengerCountManager
+    arguments: ['@entity.query']
+
   logger.channel.station_activity:
     parent: logger.channel_base
     arguments: ['Station Notice']
