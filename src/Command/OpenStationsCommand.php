@@ -12,7 +12,7 @@ use Drupal\flag_line\RunInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Drupal\AppConsole\Command\ContainerAwareCommand;
+use Drupal\Console\Command\ContainerAwareCommand;
 
 /**
  * Class OpenStationsCommand.
@@ -36,8 +36,9 @@ class OpenStationsCommand extends ContainerAwareCommand {
       ->setName('flag_line:openStations')
       ->setDescription($this->trans('command.flag_line.openStations.description'))
       ->addArgument(
-        'run_id', InputArgument::REQUIRED, $this->trans('command.flag_line.openStations.arguments.run_id')
-    );
+        'run_id', InputArgument::REQUIRED, $this->trans('command.flag_line.openStations.arguments.run_id'
+        )
+      );
   }
 
   /**
@@ -85,7 +86,8 @@ class OpenStationsCommand extends ContainerAwareCommand {
         $output->write('+');
         sleep($wait);
       }
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       $this->run
         ->setStationsStatus(RunInterface::STATIONS_CLOSED)
         ->save();

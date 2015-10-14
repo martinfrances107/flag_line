@@ -10,7 +10,7 @@ namespace Drupal\flag_line\Command;
 use Drupal\flag_line\Entity\Run;
 use Drupal\flag_line\RunInterface;
 use Drupal\flag_line\Train;
-use Drupal\AppConsole\Command\ContainerAwareCommand;
+use Drupal\Console\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -38,7 +38,7 @@ class StartTrainsCommand extends ContainerAwareCommand {
       ->setDescription($this->trans('command.flag_line.startTrains.description'))
       ->addArgument(
         'run_id', InputArgument::REQUIRED, $this->trans('command.flag_line.startTrains.arguments.run_id')
-    );
+      );
   }
 
   /**
@@ -53,9 +53,9 @@ class StartTrainsCommand extends ContainerAwareCommand {
       throw new \Exception($this->trans('Cannot find that run'));
     }
 
-    //if ($this->run->getTrainStatus() !== RunInterface::TRAINS_NOT_YET_RUN) {
-    //  throw new \Exception($this->trans('Cannot restart and running or old run.'));
-    //}
+    if ($this->run->getTrainStatus() !== RunInterface::TRAINS_NOT_YET_RUN) {
+      throw new \Exception($this->trans('Cannot restart and running or old run.'));
+    }
   }
 
   /**
