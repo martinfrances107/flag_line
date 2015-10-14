@@ -25,7 +25,7 @@ class Handbook extends ControllerBase {
     return [
       'handbook' => [
         '#theme' => 'flag_line_handbook',
-      ]
+      ],
     ];
   }
 

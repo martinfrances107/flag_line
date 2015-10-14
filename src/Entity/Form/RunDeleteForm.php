@@ -48,7 +48,7 @@ class RunDeleteForm extends ContentEntityConfirmFormBase {
       $this->t('content @type: deleted @label.',
         [
           '@type' => $this->entity->bundle(),
-          '@label' => $this->entity->label()
+          '@label' => $this->entity->label(),
         ]
         )
     );
