@@ -7,8 +7,6 @@
 
 namespace Drupal\flag_line;
 
-use Drupal\flag_line\PassengerInterface;
-
 /**
  * Defines platform accessor methods.
  *
