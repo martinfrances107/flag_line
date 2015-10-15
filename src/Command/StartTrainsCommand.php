@@ -37,7 +37,9 @@ class StartTrainsCommand extends ContainerAwareCommand {
       ->setName('flag_line:startTrains')
       ->setDescription($this->trans('command.flag_line.startTrains.description'))
       ->addArgument(
-        'run_id', InputArgument::REQUIRED, $this->trans('command.flag_line.startTrains.arguments.run_id')
+        'run_id',
+        InputArgument::REQUIRED,
+        $this->trans('command.flag_line.startTrains.arguments.run_id')
       );
   }
 

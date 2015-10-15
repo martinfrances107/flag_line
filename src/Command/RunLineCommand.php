@@ -29,8 +29,16 @@ class RunLineCommand extends ContainerAwareCommand {
     $this
       ->setName('flag_line:run')
       ->setDescription($this->trans('command.flag_line.run.description'))
-      ->addArgument('name', InputArgument::OPTIONAL, $this->trans('command.flag_line.run.arguments.name'))
-      ->addOption('yell', NULL, InputOption::VALUE_NONE, $this->trans('command.flag_line.run.options.yell'));
+      ->addArgument(
+        'name',
+        InputArgument::OPTIONAL,
+        $this->trans('command.flag_line.run.arguments.name'))
+      ->addOption(
+        'yell',
+        NULL,
+        InputOption::VALUE_NONE,
+        $this->trans('command.flag_line.run.options.yell')
+      );
   }
 
   /**

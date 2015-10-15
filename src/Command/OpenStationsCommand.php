@@ -36,8 +36,9 @@ class OpenStationsCommand extends ContainerAwareCommand {
       ->setName('flag_line:openStations')
       ->setDescription($this->trans('command.flag_line.openStations.description'))
       ->addArgument(
-        'run_id', InputArgument::REQUIRED, $this->trans('command.flag_line.openStations.arguments.run_id'
-        )
+        'run_id',
+        InputArgument::REQUIRED,
+        $this->trans('command.flag_line.openStations.arguments.run_id')
       );
   }
 
