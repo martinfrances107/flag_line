@@ -56,6 +56,9 @@ class Platform implements PlatformInterface {
     return $this->queue;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getName() {
     return $this->name;
   }
