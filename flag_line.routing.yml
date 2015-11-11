@@ -1,12 +1,4 @@
 
-flag_line.handbook_index:
-  path: '/flag_line/handbook'
-  defaults:
-    _controller: '\Drupal\flag_line\Controller\Handbook::index'
-    _title: 'Senario Testing'
-  requirements:
-    _permission: 'access content'
-
 # Run routing definition
 entity.run.canonical:
   path: '/admin/run/{run}'
