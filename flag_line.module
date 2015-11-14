@@ -34,11 +34,6 @@ function flag_line_theme() {
       'file' => 'run.page.inc',
       'template' => 'run',
     ],
-    'flag_line_handbook' => [
-      'variables' => [
-        'a' => 'apple',
-      ],
-    ],
     'scoreboard' => [
       'variables' => array(
         'numTicketsIssued'    => 0,
