@@ -20,14 +20,14 @@ interface RunInterface extends ContentEntityInterface, EntityOwnerInterface {
   /**
    * Constants that reflect the status of train services.
    */
-  const TRAINS_NOT_YET_RUN = 'READY';
+  const TRAINS_NOT_YET_RUN = 'FRESH';
   const TRAINS_RUNNING = 'RUNNING';
   const TRAINS_STOPPED = 'STOPPED';
 
   /**
    * Constants that reflect the status of the stations.
    */
-  const STATIONS_NOT_YET_OPENED = 'READY';
+  const STATIONS_NOT_YET_OPENED = 'UNOPENED';
   const STATIONS_OPEN = 'OPEN';
   const STATIONS_CLOSED = 'CLOSED';
 
