@@ -2,61 +2,60 @@
 
 /**
  * @file
- * Contains Drupal\flag_line\TrainInterface.
+ * Contains Drupal\flag_line\PassengerCountManagerInterface.
  */
 
 namespace Drupal\flag_line;
 
-use Drupal\flag_line\PassengerInterface;
-
 /**
- * Provides an train interface.
+ * Provides an service definition for counting passingers.
  *
  * @ingroup flag_line
  */
-interface TrainInterface {
+interface PassengerCountManagerInterface {
 
   /**
-   * Adds a passenger to the train.
+   * Returns the number of passenger created.
    *
-   * @param \Drupal\flag_line\PassengerInterface $passenger
-   *   The passenger boarding the train.
-   */
-  public function addPassenger(PassengerInterface $passenger);
-
-  /**
-   * Returns the service name.
-   *
-   * @return string
-   *   A Human readable name of the train.
-   */
-  public function getServiceName();
-
-  /**
-   * Returns the number of passengers on the train.
+   * @param int $run_id
+   *   The run id.
    *
    * @return int
-   *   The number on the train.
+   *   The number counted.
    */
-  public function getNumPassengers();
+  public function getNumTicketsIssued($run_id);
 
   /**
-   * Return a list of passengers alighting from the train at the station.
+   * Returns the number of passenger moved from platform to train to exit.
    *
-   * @param int $station_id
-   *   The station identifer.
+   * @param int $run_id
+   *   The run id.
    *
-   * @return \Drupal\flag_line\PassengerInterface[]
-   *   The list of passenegers.
+   * @return int
+   *   The number counted.
    */
-  public function removePassengers($station_id);
+  public function getNumJourneysComplete($run_id);
 
   /**
-   * Sets the name of the train service.
+   * Returns the number of passengers moved from platform on a train.
    *
-   * @param string $name
-   *   The name of the service.
+   * @param int $run_id
+   *   The run id.
+   *
+   * @return int
+   *   The number counted.
    */
-  public function setServiceName($name);
+  public function getNumPassengersOnTrains($run_id);
+
+  /**
+   * The number created and placed on a platform.
+   *
+   * @param int $run_id
+   *   The run id.
+   *
+   * @return int
+   *   The number counted.
+   */
+  public function getNumPassengersOnPlatforms($run_id);
 
 }
