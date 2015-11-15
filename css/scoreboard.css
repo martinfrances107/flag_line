@@ -1,0 +1,11 @@
+.float-right {
+  float:right;
+}
+
+.test-pass {
+  color: green;
+}
+
+.test-fail {
+  color:red;
+}

@@ -1,0 +1,5 @@
+scoreboard:
+  version: VERSION
+  css:
+    theme:
+      css/scoreboard.css: {}
