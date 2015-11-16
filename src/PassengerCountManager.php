@@ -54,7 +54,7 @@ class PassengerCountManager implements PassengerCountManagerInterface {
     return $query
       ->condition('run_id', $run_id)
       ->condition('alighted', 1, '=')
-      ->condition('boarded', 1, '='  )
+      ->condition('boarded', 1, '=')
       ->count()
       ->execute();
   }

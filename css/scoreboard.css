@@ -1,5 +1,5 @@
 .float-right {
-  float:right;
+  float: right;
 }
 
 .test-pass {
@@ -7,5 +7,5 @@
 }
 
 .test-fail {
-  color:red;
+  color: red;
 }
