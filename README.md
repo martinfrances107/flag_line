@@ -2,28 +2,28 @@
 This is a Drupal8 module related the the flag module
 see https://www.drupal.org/project/flag
 
-# Senario Testing
+# Scenario Testing
 
 The goal of this module is to gain confidence in the integrity of flag
-service and provide a testing enviroment to evaluate its performance.
+service and provide a testing environment to evaluate its performance.
 
-### Properties of a senario
+### Properties of a scenario
 
   - A never ending sequence of random tasks to be performed by the service.
 
-  - Scales in complexity - to stress the infrasture under load.
+  - Scales in complexity - to stress the infrastructure under load.
 
   - The task should be pseudo randomly generated from a constant seed, to allow
-    the perfmance of changes in the internals of the service to be compared.
+    the performance of changes in the internals of the service to be compared.
 
 
 
-  Confidance in the service under test grows as more tasks are completed
-  correctly but the test will run until stopped by the user. The infrastruce
+  Confidence in the service under test grows as more tasks are completed
+  correctly but the test will run until stopped by the user. The infrastructure
   under load could be an enterprise grade database server or humble a raspberry
   PI with a small memory card running a soak test.
 
-# The Senerio: Animal Railway
+# The Scenario: Animal Railway
 
    The railway operates using flags as tickets. Having animals as passengers
    allows for a variety of entity types to be flagged.
@@ -49,14 +49,14 @@ service and provide a testing enviroment to evaluate its performance.
   - All passenger boarding, are flagged as being on the train.
   - All passenger leaving, are unflagged as being on the train.
 
-##### Ingegrity checks
+##### Integrity checks
 
   The integrity checks are nothing more than those cross checks that happend on
   real train networks.
 
 
   - After a train has arrived at the last stop and unloads
-  - there <em>should</em> be no passengers flaged as on the train.
+  - there <em>should</em> be no passengers flagged as on the train.
   - The number of passenger on all trains <em>should</em> be equal to the
     number of tickets flagged.
 
@@ -64,6 +64,19 @@ service and provide a testing enviroment to evaluate its performance.
 ##### Scaling
 
 To increase the complexity - run more trains through more stations, with more
-passegners.
+passengers.
 
+##### Usage
+
+If needed enable the module.
+
+drush en flag_lag
+
+To create a new run with the name perf-test-1 using the console command
+
+console flag_line:run perf-test-1
+
+The run can be configured by overriding the default parameters
+
+flag_line:run --update_period 2 --num_stations 100 --num_passengers 1000 perf-test-1
 
