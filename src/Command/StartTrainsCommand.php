@@ -46,18 +46,24 @@ class StartTrainsCommand extends ContainerAwareCommand {
   /**
    * {@inheritdoc}
    */
-  protected function interact(InputInterface $input, OutputInterface $output) {
+  protected function initialize(InputInterface $input, OutputInterface $output) {
+    parent::initialize($input, $output);
     // Validate the input paramters.
     $run_id = $input->getArgument('run_id');
     $this->run = Run::load($run_id);
     // Validate run.
     if (is_null($this->run)) {
+      $output->writeln("Starting trains -  could not find the run. ");
       throw new \Exception($this->trans('Cannot find that run'));
     }
 
-    if ($this->run->getTrainStatus() !== RunInterface::TRAINS_NOT_YET_RUN) {
+    $status = $this->run->getTrainStatus();
+    if ($status !== RunInterface::TRAINS_NOT_YET_RUN) {
+      $output->writeln("Train status: $status - cannot continue ");
       throw new \Exception($this->trans('Cannot restart and running or old run.'));
     }
+
+    $output->writeln('Train process initialized');
   }
 
   /**

@@ -8,7 +8,7 @@
 namespace Drupal\flag_line\Command;
 
 use Drupal\flag_line\Entity\Run;
-use Drupal\flag_line\RunInterface;
+//use Drupal\flag_line\RunInterface;
 use Drupal\Console\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -30,41 +30,48 @@ class RunLineCommand extends ContainerAwareCommand {
       ->setName('flag_line:run')
       ->setDescription($this->trans('command.flag_line.run.description'))
       ->addArgument(
-        'name',
-        InputArgument::OPTIONAL,
-        $this->trans('command.flag_line.run.arguments.name'))
+        'name', InputArgument::REQUIRED, $this->trans('command.flag_line.run.arguments.name')
+      )
       ->addOption(
-        'yell',
-        NULL,
-        InputOption::VALUE_NONE,
-        $this->trans('command.flag_line.run.options.yell')
-      );
+        'update_period', NULL, InputOption::VALUE_OPTIONAL, $this->trans('command.flag_line.run.options.update_period'), 5
+      )
+      ->addOption(
+        'num_stations', NULL, InputOption::VALUE_OPTIONAL, $this->trans('command.flag_line.run.options.num_stations'), 10
+      )
+      ->addOption(
+        'num_passengers', NULL, InputOption::VALUE_OPTIONAL, $this->trans('command.flag_line.run.options.num_passengers'), 50
+    );
   }
 
   /**
    * {@inheritdoc}
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
-    $name = $input->getArgument('name');
-    if ($name) {
-      $text = 'Hello ' . $name;
-    }
-    else {
-      $text = 'Hello';
+    $values['name'] = $input->getArgument('name');
+    $values['update_period'] = $input->getOption('update_period');
+    $values['num_passengers'] = $input->getOption('num_passengers');
+    $values['num_stations'] = $input->getOption('num_stations');
+
+    /** @var  Drupal\flag_line\Entity\Run $run */
+    $run = Run::create($values);
+    $run->save();
+
+    //var_dump($run);
+    $name = $run->name->value;
+    $id = $run->id();
+
+    $output->writeln("Starting run $name ( id = $id )");
+    $train_proc = new Process('console flag_line:startTrains ' . $id);
+    $train_proc->start();
+
+    $station_proc = new Process('console flag_line:openStations ' . $id);
+    $station_proc->start();
+
+    while($train_proc->isRunning() && $station_proc->isRunning()){
+      $output->write($train_proc->getIncrementalOutput());
+      $output->write($station_proc->getIncrementalOutput());
     }
 
-    $text = sprintf(
-      '%s, %s: %s',
-      $text,
-      'I am a new generated command for the module',
-      $this->getModule()
-    );
-
-    if ($input->getOption('yell')) {
-      $text = strtoupper($text);
-    }
-
-    $output->writeln($text);
   }
 
 }

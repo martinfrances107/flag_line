@@ -36,35 +36,58 @@ class OpenStationsCommand extends ContainerAwareCommand {
       ->setName('flag_line:openStations')
       ->setDescription($this->trans('command.flag_line.openStations.description'))
       ->addArgument(
-        'run_id',
-        InputArgument::REQUIRED,
-        $this->trans('command.flag_line.openStations.arguments.run_id')
-      );
+        'run_id', InputArgument::REQUIRED, $this->trans('command.flag_line.openStations.arguments.run_id')
+    );
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function interact(InputInterface $input, OutputInterface $output) {
+  protected function initialize(InputInterface $input, OutputInterface $output) {
+
+    $output->writeln('Station process initializing');
+    parent::initialize($input, $output);
+
+    //$run_storage = $this->getContainer()->get('entity.query')->getStorage('Run');
+
     // Validate the input paramters.
     $run_id = $input->getArgument('run_id');
-    $this->run = Run::load($run_id);
+
+    // Bodge .... must find a better way to solve entity caching!
+    sleep(4);
+
+    $run = Run::load($run_id);
     // Validate run.
-    if (is_null($this->run)) {
+    if (is_null($run)) {
       throw new \RunTimeException($this->trans('Cannot find that run'));
     }
 
-    if ($this->run->getTrainStatus() !== RunInterface::TRAINS_RUNNING) {
+    $output->writeln('loaded.');
+
+    // Wait a while, until the other process starts.
+    $count = 0;
+    while ($run->getTrainStatus(TRUE) === RunInterface::TRAINS_NOT_YET_RUN && $count < 4) {
+      sleep(1);
+      $count++;
+      // TODO find a better way to refresh the TrainStatus
+      $run->load($run_id);
+    }
+
+    $status = $run->getTrainStatus();
+    if ($status !== RunInterface::TRAINS_RUNNING) {
+      $output->writeln("\nStation process error: trains status = $status - cannot initialize.");
       throw new \RunTimeException($this->trans('Trains must be running.'));
     }
+
+    $this->run = $run;
+
+    $output->writeln('Station process initialized');
   }
 
   /**
    * {@inheritdoc}
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
-    $output->writeln('Run:' . $this->run->name->value);
-
     // Information about the run.
     $wait = 0.5 * $this->run->getUpdatePeriod();
     $num_passengers = $this->run->getNumPassengers();
@@ -87,8 +110,7 @@ class OpenStationsCommand extends ContainerAwareCommand {
         $output->write('+');
         sleep($wait);
       }
-    }
-    catch (Exception $e) {
+    } catch (Exception $e) {
       $this->run
         ->setStationsStatus(RunInterface::STATIONS_CLOSED)
         ->save();
