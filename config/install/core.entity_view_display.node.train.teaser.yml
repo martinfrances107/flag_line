@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.train.field_name
     - field.field.node.train.field_passenger
     - node.type.train
   module:
@@ -17,5 +16,4 @@ content:
   links:
     weight: 100
 hidden:
-  field_name: true
   field_passenger: true
