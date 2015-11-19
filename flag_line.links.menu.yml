@@ -29,16 +29,3 @@ passenger.admin.structure.settings:
   route_name: passenger.settings
   parent: system.admin_structure
 
-
-# Train entity menu items definition
-entity.train_entity.collection:
-  title: 'Train entity list'
-  route_name: entity.train_entity.collection
-  description: 'List Train entity entities'
-
-train_entity.admin.structure.settings:
-  title: Train entity settings
-  description: 'Configure Train entity entities'
-  route_name: train_entity.settings
-  parent: system.admin_structure
-

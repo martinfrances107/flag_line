@@ -37,7 +37,6 @@ class PassengerListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\flag_line\Entity\Passenger */
     $row['id'] = $this->l(
       $entity->id(), new Url(
       'entity.passenger.edit_form', ['passenger' => $entity->id()]

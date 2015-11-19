@@ -7,7 +7,7 @@
 
 namespace Drupal\flag_line;
 
-use Drupal\flag_line\TrainEntityInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Handle the operation of trains up and down the line.
@@ -34,7 +34,7 @@ interface TrainManagerInterface {
    * @return bool
    *   FLASE when there were problems encountered.
    */
-  public function runService(TrainEntityInterface $train, array $platforms);
+  public function runService(NodeInterface $train, array $platforms);
 
   /**
    * Returns a list of passenger leave the train at the given station.
@@ -44,6 +44,6 @@ interface TrainManagerInterface {
    * @param int $station_id
    *   A station identifier.
    */
-  public function getDepartingPassengers(TrainEntityInterface $train, $station_id);
+  public function getDepartingPassengers(NodeInterface $train, $station_id);
 
 }

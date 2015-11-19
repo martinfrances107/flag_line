@@ -1,0 +1,18 @@
+uuid: 9f011587-1c66-4a58-a356-86c4139a78c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.train
+id: node.train.title
+field_name: title
+entity_type: node
+bundle: train
+label: Train
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -9,7 +9,7 @@ namespace Drupal\flag_line;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\user\EntityOwnerInterface;
-use Drupal\flag_line\TrainEntityInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Provides an interface for defining Passenger entities.
@@ -67,7 +67,7 @@ interface PassengerInterface extends ContentEntityInterface, EntityOwnerInterfac
    * @return static
    *   The object itself for chaining.
    */
-  public function setBoarded(TrainEntityInterface $train);
+  public function setBoarded(NodeInterface $train);
 
   /**
    * Records the event of a passenger leaving a train.

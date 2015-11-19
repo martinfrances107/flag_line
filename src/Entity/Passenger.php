@@ -12,7 +12,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\flag_line\PassengerInterface;
-use Drupal\flag_line\TrainEntityInterface;
+use Drupal\node\NodeInterface;
 use Drupal\user\UserInterface;
 
 /**
@@ -145,7 +145,7 @@ class Passenger extends ContentEntityBase implements PassengerInterface {
   /**
    * {@inheritdoc}
    */
-  public function setBoarded(TrainEntityInterface $train) {
+  public function setBoarded(NodeInterface $train) {
     $this->set('boarded', TRUE);
     $this->set('train_id', $train->id());
     return $this;
@@ -236,7 +236,7 @@ class Passenger extends ContentEntityBase implements PassengerInterface {
     $fields['train_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Train'))
       ->setDescription(t('The train used.'))
-      ->setSetting('target_type', 'train_entity')
+      //->setSetting('target_type', 'train_entity')
       ->setSetting('handler', 'default')
       ->setTranslatable(TRUE)
       ->setDisplayOptions('view', array(

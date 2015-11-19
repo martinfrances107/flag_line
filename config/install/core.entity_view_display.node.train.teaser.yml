@@ -1,0 +1,21 @@
+uuid: 9b731762-089b-43ee-b500-c3a5d68ba872
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.train.field_name
+    - field.field.node.train.field_passenger
+    - node.type.train
+  module:
+    - user
+id: node.train.teaser
+targetEntityType: node
+bundle: train
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_name: true
+  field_passenger: true

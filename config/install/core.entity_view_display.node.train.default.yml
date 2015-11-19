@@ -1,0 +1,31 @@
+uuid: 01c099fa-bf08-4027-9932-501015ec0b0d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.train.field_name
+    - field.field.node.train.field_passenger
+    - node.type.train
+  module:
+    - user
+id: node.train.default
+targetEntityType: node
+bundle: train
+mode: default
+content:
+  field_name:
+    weight: 101
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_passenger:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+hidden:
+  links: true

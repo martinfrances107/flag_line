@@ -1,0 +1,20 @@
+uuid: beeffe09-9001-4345-ab0a-10f676283b7f
+langcode: en
+status: true
+dependencies:
+  module:
+    - flag_line
+    - node
+id: node.field_passenger
+field_name: field_passenger
+entity_type: node
+type: entity_reference
+settings:
+  target_type: passenger
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

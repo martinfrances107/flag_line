@@ -1,0 +1,24 @@
+uuid: f64bfaea-8ced-4e17-8306-6a6aef09b9fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_passenger
+    - node.type.train
+id: node.train.field_passenger
+field_name: field_passenger
+entity_type: node
+bundle: train
+label: passenger
+description: 'Boards the train at the ''src'' station and leaves at the ''dst'' station.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:passenger'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+field_type: entity_reference

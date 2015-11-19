@@ -12,7 +12,7 @@ use Drupal\Core\Queue\SuspendQueueException;
 use Drupal\flag_line\PlatformInterface;
 use Drupal\flag_line\PassengerInterface;
 use Drupal\flag_line\Entity\Passenger;
-use Drupal\flag_line\TrainEntityInterface;
+use Drupal\node\NodeInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -52,12 +52,12 @@ class TrainManager implements TrainManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function runService(TrainEntityInterface $train, array $platforms) {
+  public function runService(NodeInterface $train, array $platforms) {
     // Keep counts.
     $num_loaded = 0;
     $num_unloaded = 0;
 
-    $sn = $train->getServiceName();
+    $sn = $train->getTitle();
     $this->logger->notice("$sn: - starts.");
 
     // Run alog the line.
@@ -103,10 +103,10 @@ class TrainManager implements TrainManagerInterface {
    * @return int
    *   The number of passegers loaded.
    */
-  private function loadPassengers(PlatformInterface $platform, TrainEntityInterface $train, $wait = 5) {
+  private function loadPassengers(PlatformInterface $platform, NodeInterface $train, $wait = 5) {
 
     $num_passengers = 0;
-    $sn = $train->getServiceName();
+    $sn = $train->getTitle();
     /* @var $queue \Drupal\Core\QueueInterface */
     $queue = $platform->getQueue();
 
@@ -163,8 +163,8 @@ class TrainManager implements TrainManagerInterface {
    * @return int
    *   The number of passengers unloaded.
    */
-  private function unloadPassengers(TrainEntityInterface $train, PlatformInterface $platform) {
-    $sn = $train->getServiceName();
+  private function unloadPassengers(NodeInterface $train, PlatformInterface $platform) {
+    $sn = $train->getTitle();
     $station_id = $platform->getStationId();
     $passengers = $this->getDepartingPassengers($train, $station_id);
     $num_passengers = count($passengers);
@@ -224,7 +224,7 @@ class TrainManager implements TrainManagerInterface {
    * @return Drupal\flag_line\PassengerInterface[]
    *   The passengers.
    */
-  public function getDepartingPassengers(TrainEntityInterface $train, $station_id) {
+  public function getDepartingPassengers(NodeInterface $train, $station_id) {
     $query = clone $this->passengerQuery;
 
     $passenger_ids = $query
@@ -245,7 +245,7 @@ class TrainManager implements TrainManagerInterface {
    * @return int
    *   The number of passengers.
    */
-  private function getNumPassengers(TrainEntityInterface $train) {
+  private function getNumPassengers(NodeInterface $train) {
     $query = clone $this->passengerQuery;
 
     return $query

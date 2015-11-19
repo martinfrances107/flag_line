@@ -9,7 +9,7 @@ namespace Drupal\flag_line\Command;
 
 use Drupal\flag_line\Entity\Run;
 use Drupal\flag_line\RunInterface;
-use Drupal\flag_line\Entity\TrainEntity;
+use Drupal\node\Entity\Node;
 use Drupal\Console\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -99,14 +99,14 @@ class StartTrainsCommand extends ContainerAwareCommand {
     // Continuous operations.
     while ($test_up && $test_down) {
       // Run train up the line.
-      $train_up = TrainEntity::create(['name' => "R$run_id:$i-U"]);
+      $train_up = Node::create(['title' => "R$run_id:$i-U", 'type' => 'train']);
       $train_up->save();
       $test_up = $train_manager->runService($train_up, $platforms_up);
       $output->write('u');
       sleep($half_time);
 
       // Run train down the line.
-      $train_down = TrainEntity::create(['name' => "R:$run_id:$i-D"]);
+      $train_down = Node::create(['title' => "R$run_id:$i-D", 'type' => 'train']);
       $train_down->save();
       $test_down = $train_manager->runService($train_down, $platforms_down);
       $output->write('d');
