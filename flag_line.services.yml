@@ -5,7 +5,7 @@ services:
 
   flag_line.train_manager:
     class: Drupal\flag_line\TrainManager
-    arguments: ['@logger.channel.train_activity']
+    arguments: [ '@entity.query', '@logger.channel.train_activity']
 
   flag_line.passenger_count_manager:
     class: Drupal\flag_line\PassengerCountManager

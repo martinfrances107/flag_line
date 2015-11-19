@@ -7,7 +7,7 @@
 
 namespace Drupal\flag_line;
 
-use Drupal\flag_line\TrainInterface;
+use Drupal\flag_line\TrainEntityInterface;
 
 /**
  * Handle the operation of trains up and down the line.
@@ -26,9 +26,7 @@ interface TrainManagerInterface {
    *
    * At the terminus, perform validation. Ensure no passenger remain.
    *
-   * @param string $name
-   *   The name of the service.
-   * @param \Drupal\flag_line\TrainInterface $train
+   * @param Drupal\flag_line\TrainEntityInterface $train
    *   A instance of a train.
    * @param \Drupal\flag_line\PlatformInterface[] $platforms
    *   A ordered list of platforms.
@@ -36,6 +34,16 @@ interface TrainManagerInterface {
    * @return bool
    *   FLASE when there were problems encountered.
    */
-  public function runService($name, TrainInterface $train, array $platforms);
+  public function runService(TrainEntityInterface $train, array $platforms);
+
+  /**
+   * Returns a list of passenger leave the train at the given station.
+   *
+   * @param Drupal\flag_line\TrainEntityInterface $train
+   *   A instance of a train.
+   * @param int $station_id
+   *   A station identifier.
+   */
+  public function getDepartingPassengers(TrainEntityInterface $train, $station_id);
 
 }

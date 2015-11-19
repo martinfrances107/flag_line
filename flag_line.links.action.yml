@@ -19,3 +19,10 @@ entity.passenger.add_form:
     - entity.passenger.canonical
 
 
+entity.train_entity.add_form:
+  route_name: entity.train_entity.add_form
+  title: 'Add Train entity'
+  appears_on:
+    - entity.train_entity.collection
+    - entity.train_entity.canonical
+

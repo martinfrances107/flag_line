@@ -62,8 +62,6 @@ class OpenStationsCommand extends ContainerAwareCommand {
       throw new \RunTimeException($this->trans('Cannot find that run'));
     }
 
-    $output->writeln('loaded.');
-
     // Wait a while, until the other process starts.
     $count = 0;
     while ($run->getTrainStatus(TRUE) === RunInterface::TRAINS_NOT_YET_RUN && $count < 4) {
@@ -111,6 +109,7 @@ class OpenStationsCommand extends ContainerAwareCommand {
         sleep($wait);
       }
     } catch (Exception $e) {
+      $output->writeln("$e");
       $this->run
         ->setStationsStatus(RunInterface::STATIONS_CLOSED)
         ->save();

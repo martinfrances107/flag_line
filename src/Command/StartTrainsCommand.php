@@ -9,7 +9,7 @@ namespace Drupal\flag_line\Command;
 
 use Drupal\flag_line\Entity\Run;
 use Drupal\flag_line\RunInterface;
-use Drupal\flag_line\Train;
+use Drupal\flag_line\Entity\TrainEntity;
 use Drupal\Console\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -82,10 +82,8 @@ class StartTrainsCommand extends ContainerAwareCommand {
     $station_manager->setNumStations($num_stations);
     $platforms_up = $station_manager->getPlatforms(TRUE);
     $platforms_down = $station_manager->getPlatforms(FALSE);
-    $station_names = $station_manager->getStationNames();
+    //$station_names = $station_manager->getStationNames();
 
-    // Define Train.
-    $train = new Train($station_names);
     /* @var $train_manager \Drupal\flag_line\TrainManagerInterface */
     $train_manager = $this->getContainer()->get('flag_line.train_manager');
 
@@ -100,11 +98,19 @@ class StartTrainsCommand extends ContainerAwareCommand {
     $test_down = TRUE;
     // Continuous operations.
     while ($test_up && $test_down) {
-      $test_up = $train_manager->runService("R$run_id:$i-U", $train, $platforms_up);
+      // Run train up the line.
+      $train_up = TrainEntity::create(['name' => "R$run_id:$i-U"]);
+      $train_up->save();
+      $test_up = $train_manager->runService($train_up, $platforms_up);
       $output->write('u');
       sleep($half_time);
-      $test_down = $train_manager->runService("R:$run_id:$i-D", $train, $platforms_down);
+
+      // Run train down the line.
+      $train_down = TrainEntity::create(['name' => "R:$run_id:$i-D"]);
+      $train_down->save();
+      $test_down = $train_manager->runService($train_down, $platforms_down);
       $output->write('d');
+
       sleep($half_time);
       $i++;
     }

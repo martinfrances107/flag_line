@@ -148,7 +148,6 @@ class StationManager implements StationManagerInterface {
         'dst' => $dst,
         'upwards' => ($src <= $dst),
         'run_id' => $run_id,
-        // 'entity_type' => 'monkey',
     ]);
     $passenger->save();
 
