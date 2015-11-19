@@ -84,7 +84,7 @@ class TrainManager implements TrainManagerInterface {
       $test_result = FALSE;
     }
     else {
-      $this->logger->notice("$sn: Train is empty at terminus.");
+      $this->logger->debug("$sn: Train is empty at terminus.");
     }
 
     return $test_result;
@@ -168,7 +168,7 @@ class TrainManager implements TrainManagerInterface {
     $station_id = $platform->getStationId();
     $passengers = $this->getDepartingPassengers($train, $station_id);
     $num_passengers = count($passengers);
-    $this->logger->info("$sn: Unloading $num_passengers passenger(s) at $station_id");
+    $this->logger->debug("$sn: Unloading $num_passengers passenger(s) at $station_id");
 
     // Process departing passenger.
     foreach ($passengers as $passenger) {

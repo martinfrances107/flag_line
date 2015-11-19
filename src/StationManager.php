@@ -115,7 +115,7 @@ class StationManager implements StationManagerInterface {
       $passenger = $this->generatePassengerAtRandom($run_id);
       $this->addPassengerToPlatform($passenger);
     }
-    $this->logger->notice("Run:$run_id: $num_passengers passengers arrive at platforms.");
+    $this->logger->debug("Run:$run_id: $num_passengers passengers arrive at platforms.");
   }
 
   /**
