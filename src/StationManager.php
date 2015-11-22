@@ -7,10 +7,11 @@
 
 namespace Drupal\flag_line;
 
-use Drupal\flag_line\Entity\Passenger;
+use Drupal\node\Entity\Node;
 use Drupal\flag_line\StationManagerInterface;
 use Drupal\Core\Queue\QueueFactory;
 use Psr\Log\LoggerInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * An instance of the station manager interface.
@@ -143,11 +144,12 @@ class StationManager implements StationManagerInterface {
     $src = rand(1, $max);
     $dst = rand(1, $max);
 
-    $passenger = Passenger::create([
-        'src' => $src,
-        'dst' => $dst,
-        'upwards' => ($src <= $dst),
-        'run_id' => $run_id,
+    $passenger = Node::create([
+        'type' => 'passenger',
+        'title' => "Passenger on Run: $run_id src $src dst $dst",
+        'field_src' => $src,
+        'field_dst' => $dst,
+        'field_upwards' => ($src <= $dst) ? 1 : 0,
     ]);
     $passenger->save();
 
@@ -160,12 +162,12 @@ class StationManager implements StationManagerInterface {
    * If the src and dst are equal the passenger will still be placed in a
    * platform queue it is up to the train to unload correctly.
    *
-   * @param \Drupal\flag_line\PassengerInterface $passenger
+   * @param \Drupal\node\NodeInterface $passenger
    *   An instance of a passenger.
    */
-  private function addPassengerToPlatform(PassengerInterface $passenger) {
+  private function addPassengerToPlatform(NodeInterface $passenger) {
     // Must check platforms exists before putting passenger into the system.
-    $upwards = $passenger->isMovingUpwards();
+    $upwards = $passenger->field_upwards->value;
     if ($upwards && is_null($this->platformsUp)) {
       $this->platformsUp = $this->generatePlatforms(TRUE);
     }
@@ -174,7 +176,7 @@ class StationManager implements StationManagerInterface {
     }
 
     // Identify the platform.
-    $name = $this->getPlatformName($passenger->getSrc(), $upwards);
+    $name = $this->getPlatformName($passenger->field_src->value, $upwards);
     $platform = $this->queueFactory->get($name, TRUE);
 
     // Add passenger.

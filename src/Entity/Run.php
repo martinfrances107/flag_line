@@ -267,7 +267,7 @@ class Run extends ContentEntityBase implements RunInterface {
 
     $fields['num_passengers'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Passengers'))
-      ->setDescription(t('The number of passenegers generated in the update period.'))
+      ->setDescription(t('The number of passengers generated in the update period.'))
       ->setRequired(TRUE)
       ->setDefaultValue(50)
       ->setDisplayOptions('view', array(

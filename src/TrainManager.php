@@ -10,9 +10,8 @@ namespace Drupal\flag_line;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Queue\SuspendQueueException;
 use Drupal\flag_line\PlatformInterface;
-use Drupal\flag_line\PassengerInterface;
-use Drupal\flag_line\Entity\Passenger;
 use Drupal\node\NodeInterface;
+use Drupal\node\Entity\Node;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -45,7 +44,10 @@ class TrainManager implements TrainManagerInterface {
    *   A logger instance.
    */
   public function __construct(QueryFactory $query_factory, LoggerInterface $logger) {
-    $this->passengerQuery = $query_factory->get('passenger');
+    $this->passengerQuery = $query_factory->get('node');
+    $this->passengerQuery
+      ->condition('type', 'passenger')
+      ->accessCheck(FALSE);
     $this->logger = $logger;
   }
 
@@ -57,7 +59,7 @@ class TrainManager implements TrainManagerInterface {
     $num_loaded = 0;
     $num_unloaded = 0;
 
-    $sn = $train->getTitle();
+    $sn = $train->title->value;
     $this->logger->notice("$sn: - starts.");
 
     // Run alog the line.
@@ -78,15 +80,6 @@ class TrainManager implements TrainManagerInterface {
       $this->logger->error("$sn: Passenger mismatch. - $info");
     }
 
-    $num_onboard = $this->getNumPassengers($train);
-    if ($num_onboard != 0) {
-      $this->logger->error("$sn: $num_onboard Passenger(s) incorrectly found on train at terminus.");
-      $test_result = FALSE;
-    }
-    else {
-      $this->logger->debug("$sn: Train is empty at terminus.");
-    }
-
     return $test_result;
   }
 
@@ -95,7 +88,7 @@ class TrainManager implements TrainManagerInterface {
    *
    * @param Drupal\flag_line\PlatformInterface $platform
    *   The platform queue to empty.
-   * @param Drupal\flag_line\TrainEntityInterface $train
+   * @param \Drupal\node\NodeInterface $train
    *   The train to load.
    * @param int $wait
    *   The time in seconds to spend loading the train.
@@ -106,7 +99,7 @@ class TrainManager implements TrainManagerInterface {
   private function loadPassengers(PlatformInterface $platform, NodeInterface $train, $wait = 5) {
 
     $num_passengers = 0;
-    $sn = $train->getTitle();
+    $sn = $train->title->value;
     /* @var $queue \Drupal\Core\QueueInterface */
     $queue = $platform->getQueue();
 
@@ -114,26 +107,40 @@ class TrainManager implements TrainManagerInterface {
     $end = time() + $wait;
     while (time() < $end && ($item = $queue->claimItem())) {
       try {
-        /** @var Drupal\flag_line\PassengerInterface $passenger */
+        /** @var Drupal\node\NodeInterface $passenger */
         $passenger = $item->data;
-        if ($passenger instanceof PassengerInterface) {
+
+        if ($passenger instanceof NodeInterface && ($passenger->getType() == 'passenger')) {
           // Checks.
-          if ($passenger->hasAlighted()) {
+          if ($passenger->field_alighted->value) {
             $this->logger->error("$sn: Loading a passenger who has already gotten off a train.");
           }
-          if ($passenger->hasBoarded()) {
+          if ($passenger->field_boarded->value) {
             $this->logger->error("$sn: Loading a passenger who has already boarded a train.");
           }
 
           $pid = $passenger->id();
-          $this->logger->debug("$sn: loading passenger with id $pid to train.");
-          $passenger->setBoarded($train)->save();
+          $this->logger->debug("$sn: Loading passenger with id $pid to train.");
+
+          // Mark passenger as being on the train.
+          $passenger->field_boarded->value = 1;
+          $passenger->field_train = $train->id();
+          $passenger->save();
+
+          // Add passenger to the train.
+          //$train->field_passenger[] = $passenger->id();
+          //$train->save();
+
           $queue->deleteItem($item);
           // Only consider the passenger added, when he/she is no longer on the
           // platform queue.
           $num_passengers++;
         }
-      } catch (SuspendQueueException $e) {
+        else {
+          $this->logger->error("$sn: Trrain manager - pulled unexpected item offf queue");
+        }
+      }
+      catch (SuspendQueueException $e) {
         // If the worker indicates there is a problem with the whole queue,
         // release the item.
         $this->logger->error("$sn: Leaving passenger at the station!");
@@ -141,7 +148,7 @@ class TrainManager implements TrainManagerInterface {
       } catch (\Exception $e) {
         // In case of any other kind of exception, leave the item
         // in the queue to be processed again later.
-        $this->logger->emergency("$sn: Unexpected exception loading passenegrs.");
+        $this->logger->emergency("$sn: Unexpected exception loading passengers.");
       }
     }
 
@@ -155,7 +162,7 @@ class TrainManager implements TrainManagerInterface {
   /**
    * Transfer the passengers from train onto platform.
    *
-   * @param Drupal\flag_line\TrainEntityInterface $train
+   * @param \Drupal\node\NodeInterface $train
    *   The train unloading passengers.
    * @param Drupal\flag_line\PlatformInterface $platform
    *   The platform receiving the passengers.
@@ -164,9 +171,9 @@ class TrainManager implements TrainManagerInterface {
    *   The number of passengers unloaded.
    */
   private function unloadPassengers(NodeInterface $train, PlatformInterface $platform) {
-    $sn = $train->getTitle();
+    $sn = $train->title->value;
     $station_id = $platform->getStationId();
-    $passengers = $this->getDepartingPassengers($train, $station_id);
+    $passengers = $this->getDepartingPassengers($train->id(), $station_id);
     $num_passengers = count($passengers);
     $this->logger->debug("$sn: Unloading $num_passengers passenger(s) at $station_id");
 
@@ -174,40 +181,12 @@ class TrainManager implements TrainManagerInterface {
     foreach ($passengers as $passenger) {
       $pid = $passenger->id();
       $this->logger->debug("$sn: Unloading passenger $pid from train");
-      if (!($passenger instanceof PassengerInterface)) {
-        // Checks.
-        $name = get_class($passenger);
-        if (is_object($passenger)) {
-          $name = get_class($passenger);
-        }
-        else {
-          $name = gettype($passenger);
-        }
-        $this->logger->error("$sn: Did not pull a passenger off the train! - class/type $name.");
-      }
-
-      if (!$passenger->hasBoarded()) {
-        $pid = $passenger->id();
-        $this->logger->error("$sn: Unloading at $station_id - passenger $pid - Did NOT boarded a train.");
-      }
-
-      if ($passenger->hasAlighted()) {
-        $pid = $passenger->id();
-        $this->logger->error("$sn: Unloading at $station_id - passenger $pid - Cannot get off the train more than once.");
-      }
-
-      $passenger_dst = $passenger->getDst();
-      if ($passenger_dst != $station_id) {
-        $pid = $passenger->id();
-        $this->logger->error("$sn: Unloading at $station_id - passenger $pid - Did not alight at station $passenger_dst.");
-      }
 
       // Unflag the passenger as they leave the station.
       $passenger
-        ->setAlighted()
+        ->set('field_alighted', 1)
         ->save();
 
-      // @TODO: Maybe delete passenger.
     }
 
     return $num_passengers;
@@ -216,44 +195,28 @@ class TrainManager implements TrainManagerInterface {
   /**
    * Gets passengers leaving a train at a given station.
    *
-   * @param \Drupal\flag_line\TrainEntityInterface $train
-   *   The Train.
+   * @param int
+   *   The Train indentifer.
    * @param int $station_id
    *   The station identifer.
    *
    * @return Drupal\flag_line\PassengerInterface[]
    *   The passengers.
    */
-  public function getDepartingPassengers(NodeInterface $train, $station_id) {
+  public function getDepartingPassengers($train_id, $station_id) {
     $query = clone $this->passengerQuery;
 
     $passenger_ids = $query
-      ->condition('dst', $station_id, '=')
-      ->condition('alighted', '0', '=')
-      ->condition('boarded', '1', '=')
-      ->condition('train_id', $train->id(), '=')
+      ->condition('field_dst', $station_id, '=')
+      ->condition('field_alighted', 0, '=')
+      ->condition('field_boarded', 1, '=')
+      ->condition('field_train', $train_id, '=')
       ->execute();
-    return Passenger::loadMultiple($passenger_ids);
-  }
 
-  /**
-   * Returns the number of passeneger on the train.
-   *
-   * @param Drupal\flag_line\TrainEntityInterface $train
-   *   The Train.
-   *
-   * @return int
-   *   The number of passengers.
-   */
-  private function getNumPassengers(NodeInterface $train) {
-    $query = clone $this->passengerQuery;
+    $passengers = Node::loadMultiple($passenger_ids);
 
-    return $query
-        ->condition('alighted', '0', '=')
-        ->condition('boarded', '1', '=')
-        ->condition('train_id', $train->id(), '=')
-        ->count()
-        ->execute();
+    // Return departing passengers.
+    return $passengers;
   }
 
 }

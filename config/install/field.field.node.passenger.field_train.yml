@@ -1,0 +1,26 @@
+uuid: 5c32d7f7-1423-4ada-a000-b391eab303fd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_train
+    - node.type.passenger
+    - node.type.train
+id: node.passenger.field_train
+field_name: field_train
+entity_type: node
+bundle: passenger
+label: train
+description: 'The train the passenger boards'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      train: train
+    sort:
+      field: _none
+field_type: entity_reference

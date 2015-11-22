@@ -39,7 +39,7 @@ class RunLineCommand extends ContainerAwareCommand {
         'num_stations', NULL, InputOption::VALUE_OPTIONAL, $this->trans('command.flag_line.run.options.num_stations'), 10
       )
       ->addOption(
-        'num_passengers', NULL, InputOption::VALUE_OPTIONAL, $this->trans('command.flag_line.run.options.num_passengers'), 50
+        'num_passengers', NULL, InputOption::VALUE_OPTIONAL, $this->trans('command.flag_line.run.options.num_passengers'), 5
     );
   }
 
@@ -56,7 +56,6 @@ class RunLineCommand extends ContainerAwareCommand {
     $run = Run::create($values);
     $run->save();
 
-    //var_dump($run);
     $name = $run->name->value;
     $id = $run->id();
 

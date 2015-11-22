@@ -1,18 +1,18 @@
-uuid: 768640c1-6b77-431f-a000-a5af42648b2c
+uuid: 90069ce5-4ba2-498d-9900-e915ad0463ab
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_passenger
-field_name: field_passenger
+id: node.field_train
+field_name: field_train
 entity_type: node
 type: entity_reference
 settings:
   target_type: node
 module: core
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

@@ -1,0 +1,17 @@
+uuid: f22c38d5-f578-4ed6-9100-df565358f79f
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Passenger
+type: passenger
+description: 'Passenger are created, arrive at a platform, board a train and leave at their destination.'
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: false

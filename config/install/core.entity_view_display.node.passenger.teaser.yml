@@ -1,0 +1,29 @@
+uuid: 1e37f30b-c291-4cb8-ad00-c18a136cd5d9
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.passenger.field_alighted
+    - field.field.node.passenger.field_boarded
+    - field.field.node.passenger.field_dst
+    - field.field.node.passenger.field_src
+    - field.field.node.passenger.field_train
+    - field.field.node.passenger.field_upwards
+    - node.type.passenger
+  module:
+    - user
+id: node.passenger.teaser
+targetEntityType: node
+bundle: passenger
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_alighted: true
+  field_boarded: true
+  field_dst: true
+  field_src: true
+  field_train: true
+  field_upwards: true

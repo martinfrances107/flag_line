@@ -21,12 +21,12 @@ interface TrainManagerInterface {
    *
    * At each station:
    *
-   * - Unload passenegrs.
-   * - Load passenegrs.
+   * - Unload passengers.
+   * - Load passengers.
    *
    * At the terminus, perform validation. Ensure no passenger remain.
    *
-   * @param Drupal\flag_line\TrainEntityInterface $train
+   * @param \Drupal\node\NodeInterface $train
    *   A instance of a train.
    * @param \Drupal\flag_line\PlatformInterface[] $platforms
    *   A ordered list of platforms.
@@ -37,13 +37,13 @@ interface TrainManagerInterface {
   public function runService(NodeInterface $train, array $platforms);
 
   /**
-   * Returns a list of passenger leave the train at the given station.
+   * Returns a list of passenger leaving the train at the given station.
    *
-   * @param Drupal\flag_line\TrainEntityInterface $train
+   * @param int $train_id
    *   A instance of a train.
    * @param int $station_id
    *   A station identifier.
    */
-  public function getDepartingPassengers(NodeInterface $train, $station_id);
+  public function getDepartingPassengers($train_id, $station_id);
 
 }

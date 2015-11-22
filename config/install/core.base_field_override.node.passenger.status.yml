@@ -1,0 +1,22 @@
+uuid: df2c03da-be2b-45ad-822d-455258380d87
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.passenger
+id: node.passenger.status
+field_name: status
+entity_type: node
+bundle: passenger
+label: 'Publishing status'
+description: 'A boolean indicating whether the node is published.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

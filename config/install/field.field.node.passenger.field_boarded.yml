@@ -1,0 +1,23 @@
+uuid: 2b0aef3a-441e-4ed8-9a3f-637e24749271
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_boarded
+    - node.type.passenger
+id: node.passenger.field_boarded
+field_name: field_boarded
+entity_type: node
+bundle: passenger
+label: boarded
+description: 'TRUE when the passenger has boarded a train.'
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

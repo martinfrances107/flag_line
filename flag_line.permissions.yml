@@ -16,36 +16,3 @@ view run entities:
 add train entities:
   title: 'Create new Train entities'
 
-add passenger entities:
-  title: 'Create new Passenger entities'
-
-administer passenger entities:
-  title: 'Administer Passenger entities'
-  description: 'Allow to access the administration form to configure Passenger entities.'
-
-delete passenger entities:
-  title: 'Delete Passenger entities'
-
-edit passenger entities:
-  title: 'Edit Passenger entities'
-
-view passenger entities:
-  title: 'View Passenger entities'
-add default entity entities:
-  title: 'Create new Default entity entities'
-
-add train entity entities:
-  title: 'Create new Train entity entities'
-
-administer train entity entities:
-  title: 'Administer Train entity entities'
-  description: 'Allow to access the administration form to configure Train entity entities.'
-
-delete train entity entities:
-  title: 'Delete Train entity entities'
-
-edit train entity entities:
-  title: 'Edit Train entity entities'
-
-view train entity entities:
-  title: 'View Train entity entities'

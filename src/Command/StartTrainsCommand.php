@@ -70,7 +70,7 @@ class StartTrainsCommand extends ContainerAwareCommand {
    * {@inheritdoc}
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
-    $output->writeln('Run:' . $this->run->name->value);
+    $output->writeln('train process, Run:' . $this->run->name->value);
 
     // Information about the run.
     $half_time = 0.5 * $this->run->getUpdatePeriod();
@@ -99,14 +99,15 @@ class StartTrainsCommand extends ContainerAwareCommand {
     // Continuous operations.
     while ($test_up && $test_down) {
       // Run train up the line.
-      $train_up = Node::create(['title' => "R$run_id:$i-U", 'type' => 'train']);
+      $train_up = Node::create(['title' => "Train R$run_id-$i-U", 'type' => 'train']);
       $train_up->save();
+
       $test_up = $train_manager->runService($train_up, $platforms_up);
       $output->write('u');
       sleep($half_time);
 
       // Run train down the line.
-      $train_down = Node::create(['title' => "R$run_id:$i-D", 'type' => 'train']);
+      $train_down = Node::create(['title' => "Train R$run_id-$i-D", 'type' => 'train']);
       $train_down->save();
       $test_down = $train_manager->runService($train_down, $platforms_down);
       $output->write('d');

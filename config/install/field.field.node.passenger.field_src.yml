@@ -1,0 +1,23 @@
+uuid: 72b133c4-6398-4c99-bb62-98d50227c35c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_src
+    - node.type.passenger
+id: node.passenger.field_src
+field_name: field_src
+entity_type: node
+bundle: passenger
+label: src
+description: 'The source station.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

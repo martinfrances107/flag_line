@@ -9,23 +9,3 @@ run.admin.structure.settings:
   description: 'Configure Run entities'
   route_name: run.settings
   parent: system.admin_structure
-
-# Passenger type menu items definition
-entity.passenger_type.collection:
-  title: 'Passenger type'
-  route_name: entity.passenger_type.collection
-  description: 'List Passenger type'
-  parent: system.admin_structure
-
-# Passenger menu items definition
-entity.passenger.collection:
-  title: 'Passenger list'
-  route_name: entity.passenger.collection
-  description: 'List Passenger entities'
-
-passenger.admin.structure.settings:
-  title: Passenger settings
-  description: 'Configure Passenger entities'
-  route_name: passenger.settings
-  parent: system.admin_structure
-

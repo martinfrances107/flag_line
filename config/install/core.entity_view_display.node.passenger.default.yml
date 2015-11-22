@@ -1,0 +1,71 @@
+uuid: 7052c684-0d72-4ee0-a903-3ae0252113ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.passenger.field_alighted
+    - field.field.node.passenger.field_boarded
+    - field.field.node.passenger.field_dst
+    - field.field.node.passenger.field_src
+    - field.field.node.passenger.field_train
+    - field.field.node.passenger.field_upwards
+    - node.type.passenger
+  module:
+    - user
+id: node.passenger.default
+targetEntityType: node
+bundle: passenger
+mode: default
+content:
+  field_alighted:
+    weight: 3
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_boarded:
+    weight: 2
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_dst:
+    weight: 1
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_src:
+    weight: 0
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_train:
+    weight: 5
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_upwards:
+    weight: 4
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+hidden:
+  links: true

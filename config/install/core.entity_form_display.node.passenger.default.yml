@@ -1,0 +1,36 @@
+uuid: a882d87e-7d68-4172-af3a-58e4247f059d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.passenger.field_alighted
+    - field.field.node.passenger.field_boarded
+    - field.field.node.passenger.field_dst
+    - field.field.node.passenger.field_src
+    - field.field.node.passenger.field_train
+    - field.field.node.passenger.field_upwards
+    - node.type.passenger
+id: node.passenger.default
+targetEntityType: node
+bundle: passenger
+mode: default
+content:
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: 'Name'
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_alighted: true
+  field_boarded: true
+  field_dst: true
+  field_src: true
+  field_train: true
+  field_upwards: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

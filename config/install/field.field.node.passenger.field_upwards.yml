@@ -1,0 +1,23 @@
+uuid: a8a8ef63-ecbd-4ff4-8200-cd697a482610
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_upwards
+    - node.type.passenger
+id: node.passenger.field_upwards
+field_name: field_upwards
+entity_type: node
+bundle: passenger
+label: upwards
+description: 'TRUE when the passenger is moving up the line ( src >= dst )'
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean
