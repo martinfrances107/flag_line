@@ -128,8 +128,7 @@ class TrainManager implements TrainManagerInterface {
           $passenger->save();
 
           // Add passenger to the train.
-          //$train->field_passenger[] = $passenger->id();
-          //$train->save();
+          $train->field_passenger[] = $passenger->id();
 
           $queue->deleteItem($item);
           // Only consider the passenger added, when he/she is no longer on the
@@ -148,9 +147,12 @@ class TrainManager implements TrainManagerInterface {
       } catch (\Exception $e) {
         // In case of any other kind of exception, leave the item
         // in the queue to be processed again later.
-        $this->logger->emergency("$sn: Unexpected exception loading passengers.");
+        $this->logger->error("$sn: Unexpected exception loading passengers.");
       }
     }
+
+    // Loading complete.
+    $train->save();
 
     // Debug.
     $station_id = $platform->getStationId();
