@@ -11,7 +11,6 @@ use Drupal\Core\Controller\ControllerBase;
 USE Drupal\flag_line\RunInterface;
 use Drupal\flag_line\PassengerCountManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\node\Entity\Node;
 
 /**
  * Class ScoreboardController.
