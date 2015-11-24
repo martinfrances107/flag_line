@@ -147,6 +147,7 @@ class StationManager implements StationManagerInterface {
     $passenger = Node::create([
         'type' => 'passenger',
         'title' => "Passenger on Run: $run_id src $src dst $dst",
+        'field_run_id' => $run_id,
         'field_src' => $src,
         'field_dst' => $dst,
         'field_upwards' => ($src <= $dst) ? 1 : 0,

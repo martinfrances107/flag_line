@@ -40,7 +40,7 @@ class PassengerCountManager implements PassengerCountManagerInterface {
     $query = clone $this->passengerQuery;
 
     return $query
-      ->condition('run_id', $run_id)
+      ->condition('field_run_id', $run_id)
       ->count()
       ->execute();
   }
@@ -52,9 +52,9 @@ class PassengerCountManager implements PassengerCountManagerInterface {
     $query = clone $this->passengerQuery;
 
     return $query
-      ->condition('run_id', $run_id)
-      ->condition('alighted', 1, '=')
-      ->condition('boarded', 1, '=')
+      ->condition('field_run_id', $run_id)
+      ->condition('field_alighted', 1, '=')
+      ->condition('field_boarded', 1, '=')
       ->count()
       ->execute();
   }
@@ -66,9 +66,9 @@ class PassengerCountManager implements PassengerCountManagerInterface {
     $query = clone $this->passengerQuery;
 
     return $query
-      ->condition('run_id', $run_id)
-      ->condition('alighted', 0, '=')
-      ->condition('boarded', 1, '=')
+      ->condition('field_run_id', $run_id)
+      ->condition('field_alighted', 0, '=')
+      ->condition('field_boarded', 1, '=')
       ->count()
       ->execute();
   }
@@ -80,9 +80,9 @@ class PassengerCountManager implements PassengerCountManagerInterface {
     $query = clone $this->passengerQuery;
 
     return $query
-      ->condition('run_id', $run_id)
-      ->condition('alighted', 0, '=')
-      ->condition('boarded', 0, '=')
+      ->condition('field_run_id', $run_id)
+      ->condition('field_alighted', 0, '=')
+      ->condition('field_boarded', 0, '=')
       ->count()
       ->execute();
 

@@ -1,0 +1,22 @@
+uuid: dc3b0b01-418c-4958-9900-df80145fce98
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_run_id
+    - node.type.passenger
+id: node.passenger.field_run_id
+field_name: field_run_id
+entity_type: node
+bundle: passenger
+label: run_id
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:run'
+  handler_settings: {  }
+field_type: entity_reference
+
