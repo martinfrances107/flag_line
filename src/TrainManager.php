@@ -205,7 +205,7 @@ class TrainManager implements TrainManagerInterface {
    * @return Drupal\flag_line\PassengerInterface[]
    *   The passengers.
    */
-  public function getDepartingPassengers($train_id, $station_id) {
+  private function getDepartingPassengers($train_id, $station_id) {
     $query = clone $this->passengerQuery;
 
     $passenger_ids = $query

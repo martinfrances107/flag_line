@@ -36,14 +36,4 @@ interface TrainManagerInterface {
    */
   public function runService(NodeInterface $train, array $platforms);
 
-  /**
-   * Returns a list of passenger leaving the train at the given station.
-   *
-   * @param int $train_id
-   *   A instance of a train.
-   * @param int $station_id
-   *   A station identifier.
-   */
-  public function getDepartingPassengers($train_id, $station_id);
-
 }
