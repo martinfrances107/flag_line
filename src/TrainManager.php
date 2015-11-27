@@ -197,7 +197,7 @@ class TrainManager implements TrainManagerInterface {
   /**
    * Gets passengers leaving a train at a given station.
    *
-   * @param int
+   * @param int $train_id
    *   The Train indentifer.
    * @param int $station_id
    *   The station identifer.

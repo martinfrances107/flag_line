@@ -44,11 +44,7 @@ class OpenStationsCommand extends ContainerAwareCommand {
    * {@inheritdoc}
    */
   protected function initialize(InputInterface $input, OutputInterface $output) {
-
-    $output->writeln('Station process initializing');
     parent::initialize($input, $output);
-
-    //$run_storage = $this->getContainer()->get('entity.query')->getStorage('Run');
 
     // Validate the input paramters.
     $run_id = $input->getArgument('run_id');
@@ -79,7 +75,9 @@ class OpenStationsCommand extends ContainerAwareCommand {
 
     $this->run = $run;
 
-    $output->writeln('Station process initialized');
+    // Visually confirm run.
+    $name = $run->name->value;
+    $output->writeln("Station process initialized Run: $name ( id = $run_id )");
   }
 
   /**
@@ -89,26 +87,24 @@ class OpenStationsCommand extends ContainerAwareCommand {
     // Information about the run.
     $wait = 0.5 * $this->run->getUpdatePeriod();
     $num_passengers = $this->run->getNumPassengers();
-    $num_stations = $this->run->getNumStations();
 
     /* @var $station_manager \Drupal\flag_line\StationManagerInterface */
     $station_manager = $this->getContainer()->get('flag_line.station_manager');
-    $station_manager->setNumStations($num_stations);
 
     // Open stations to passengers.
     $this->run
       ->setStationsStatus(RunInterface::STATIONS_OPEN)
       ->save();
 
-    $run_id = $this->run->id();
     // Continuous operations.
     try {
       while (TRUE) {
-        $station_manager->populateStationsAtRandom($num_passengers, $run_id);
+        $station_manager->populateStationsAtRandom($num_passengers, $this->run);
         $output->write('+');
         sleep($wait);
       }
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       $output->writeln("$e");
       $this->run
         ->setStationsStatus(RunInterface::STATIONS_CLOSED)

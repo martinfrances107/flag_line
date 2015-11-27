@@ -63,26 +63,20 @@ class StartTrainsCommand extends ContainerAwareCommand {
       throw new \Exception($this->trans('Cannot restart and running or old run.'));
     }
 
-    $output->writeln('Train process initialized');
+    // Visually confirm run.
+    $name = $this->run->name->value;
+    $output->writeln("Train process initialized Run: $name ( id = $run_id )");
+
   }
 
   /**
    * {@inheritdoc}
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
-    $output->writeln('train process, Run:' . $this->run->name->value);
 
     // Information about the run.
     $half_time = 0.5 * $this->run->getUpdatePeriod();
     $num_stations = $this->run->getNumStations();
-
-    // Information about the line.
-    /* @var $station_manager \Drupal\flag_line\StationManagerInterface */
-    $station_manager = $this->getContainer()->get('flag_line.station_manager');
-    $station_manager->setNumStations($num_stations);
-    $platforms_up = $station_manager->getPlatforms(TRUE);
-    $platforms_down = $station_manager->getPlatforms(FALSE);
-    //$station_names = $station_manager->getStationNames();
 
     /* @var $train_manager \Drupal\flag_line\TrainManagerInterface */
     $train_manager = $this->getContainer()->get('flag_line.train_manager');
@@ -92,7 +86,15 @@ class StartTrainsCommand extends ContainerAwareCommand {
       ->setTrainStatus(RunInterface::TRAINS_RUNNING)
       ->save();
 
+    // Saving run generates an id.
     $run_id = $this->run->id();
+
+    // Information about the line.
+    /* @var $station_manager \Drupal\flag_line\StationManagerInterface */
+    $station_manager = $this->getContainer()->get('flag_line.station_manager');
+    $platforms_up = $station_manager->getPlatforms($run_id, $num_stations, TRUE);
+    $platforms_down = $station_manager->getPlatforms($run_id, $num_stations, FALSE);
+
     $i = 0;
     $test_up = TRUE;
     $test_down = TRUE;

@@ -27,11 +27,18 @@ class Platform implements PlatformInterface {
   private $name;
 
   /**
-   * The holds a list of passengers waiting at the platform.
+   * A list of passengers waiting at the platform.
    *
    * @param \Drupal\Core\Queue\QueueInterface $queue
    */
   private $queue;
+
+  /**
+   * The station identifer.
+   *
+   * @var int
+   */
+  private $stationId;
 
   /**
    * Constructor.

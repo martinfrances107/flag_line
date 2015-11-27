@@ -8,7 +8,6 @@
 namespace Drupal\flag_line\Command;
 
 use Drupal\flag_line\Entity\Run;
-//use Drupal\flag_line\RunInterface;
 use Drupal\Console\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

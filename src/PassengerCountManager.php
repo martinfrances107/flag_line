@@ -31,6 +31,7 @@ class PassengerCountManager implements PassengerCountManagerInterface {
    */
   public function __construct(QueryFactory $query_factory) {
     $this->passengerQuery = $query_factory->get('node');
+    $this->passengerQuery->condition('type', 'passenger');
   }
 
   /**
