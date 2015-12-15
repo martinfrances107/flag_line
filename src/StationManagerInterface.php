@@ -19,10 +19,12 @@ interface StationManagerInterface {
   /**
    * Returns a list of platforms for a given direction of travel.
    *
-   * @param bool $upwards
-   *   Is the direciton of travel up the line?
+   * @param int $run_id
+   *   The run identifer.
    * @param int $num_stations
    *   The number of stations on the line.
+   * @param bool $upwards
+   *   Is the direciton of travel up the line?
    *
    * @return \Drupal\flag_line\PlatformInterface[]
    *   An ordered list of platforms.
