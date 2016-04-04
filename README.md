@@ -70,7 +70,7 @@ passengers.
 
 If needed enable the module.
 
-drush en flag_lag
+drush en flag_line
 
 To create a new run with the name perf-test-1 using the console command
 
