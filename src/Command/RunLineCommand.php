@@ -39,7 +39,7 @@ class RunLineCommand extends ContainerAwareCommand {
       )
       ->addOption(
         'num_passengers', NULL, InputOption::VALUE_OPTIONAL, $this->trans('command.flag_line.run.options.num_passengers'), 5
-    );
+      );
   }
 
   /**
@@ -51,7 +51,7 @@ class RunLineCommand extends ContainerAwareCommand {
     $values['num_passengers'] = $input->getOption('num_passengers');
     $values['num_stations'] = $input->getOption('num_stations');
 
-    /** @var  Drupal\flag_line\Entity\Run $run */
+    /** @var Drupal\flag_line\Entity\Run $run */
     $run = Run::create($values);
     $run->save();
 
@@ -65,7 +65,7 @@ class RunLineCommand extends ContainerAwareCommand {
     $station_proc = new Process('console flag_line:openStations ' . $id);
     $station_proc->start();
 
-    while($train_proc->isRunning() && $station_proc->isRunning()){
+    while ($train_proc->isRunning() && $station_proc->isRunning()) {
       $output->write($train_proc->getIncrementalOutput());
       $output->write($station_proc->getIncrementalOutput());
     }

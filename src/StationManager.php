@@ -120,12 +120,12 @@ class StationManager implements StationManagerInterface {
 
     $run_id = $run->id();
     $passenger = Node::create([
-        'type' => 'passenger',
-        'title' => "Passenger on Run: $run_id src $src dst $dst",
-        'field_run_id' => $run_id,
-        'field_src' => $src,
-        'field_dst' => $dst,
-        'field_upwards' => ($src <= $dst) ? 1 : 0,
+      'type' => 'passenger',
+      'title' => "Passenger on Run: $run_id src $src dst $dst",
+      'field_run_id' => $run_id,
+      'field_src' => $src,
+      'field_dst' => $dst,
+      'field_upwards' => ($src <= $dst) ? 1 : 0,
     ]);
     $passenger->save();
 
@@ -143,7 +143,7 @@ class StationManager implements StationManagerInterface {
    */
   private function addPassengerToPlatform(NodeInterface $passenger) {
     // Must check platforms exists before putting passenger into the system.
-    $run_id = $passenger->field_run_id->target_id; // Just id not entity.
+    $run_id = $passenger->field_run_id->target_id;
     $upwards = $passenger->field_upwards->value;
     $station_id = $passenger->field_src->value;
 
@@ -157,12 +157,14 @@ class StationManager implements StationManagerInterface {
    *
    * Generates a list of paltform queues when first called and then caches them.
    *
+   * @param int $run_id
+   *   The run identifder.
    * @param int $station_id
    *   A station identifer.
    * @param bool $upwards
    *   TRUE if the direction of travel is upwards.
    *
-   * @return
+   * @return \Drupal\Core\Queue\QueueInterface
    *   The platform queue.
    */
   private function getPlatformQueue($run_id, $station_id, $upwards) {

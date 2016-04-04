@@ -37,7 +37,7 @@ class OpenStationsCommand extends ContainerAwareCommand {
       ->setDescription($this->trans('command.flag_line.openStations.description'))
       ->addArgument(
         'run_id', InputArgument::REQUIRED, $this->trans('command.flag_line.openStations.arguments.run_id')
-    );
+      );
   }
 
   /**
@@ -63,7 +63,7 @@ class OpenStationsCommand extends ContainerAwareCommand {
     while ($run->getTrainStatus(TRUE) === RunInterface::TRAINS_NOT_YET_RUN && $count < 4) {
       sleep(1);
       $count++;
-      // TODO find a better way to refresh the TrainStatus
+      // TODO find a better way to refresh the TrainStatus.
       $run->load($run_id);
     }
 
