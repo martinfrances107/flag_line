@@ -11,10 +11,11 @@
 {{ attach_library('flag_line/scoreboard') }}
       {% set sum =  numJourneysComplete + numPassengersOnPlatforms + numPassengersOnTrains %}
 <table>
-  <th>Count</th>
-  <th>Value</th>
+  <th>{{ 'Count'|t }}</th>
+  <th>{{ 'Value'|t }}</th>
+
   <tr>
-    <td>Number of tickets issued.</td>
+    <td>{{ 'Number of tickets issued.'|t }}</td>
     <td>{{numTicketsIssued}}</td>
   </tr>
   <tr>
@@ -22,20 +23,20 @@
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td>Number of journeys completed.</td>
+    <td>{{ 'Number of journeys completed.'|t }}</td>
     <td>{{numJourneysComplete}}</td>
   </tr>
     <tr>
-    <td>Number of passengers on waiting on Platforms.</td>
+    <td>{{ 'Number of passengers on waiting on Platforms.'|t }}</td>
     <td>{{numPassengersOnPlatforms}}</td>
   </tr>
     <tr>
-    <td>Number of passengers on trains.</td>
+    <td>{{ 'Number of passengers on trains.'|t }}</td>
     <td>{{numPassengersOnTrains}}</td>
   </tr>
   <tr>
     <td>
-      <span class="float-right">Sum</span>
+      <span class="float-right">{{ 'Sum'|t }}</span>
     </td>
     <td>
       {% if numTicketsIssued == sum %}
