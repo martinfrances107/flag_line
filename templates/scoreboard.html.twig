@@ -1,15 +1,15 @@
 {#
 /**
- * @file run.html.twig
- * Default theme implementation to present Run data.
- *
- * This template is used when viewing Run pages.
+ * @file scoreboard.html.twig
+ * Default theme implementation of the Scoreboard showing running totals.
  *
  * @ingroup themeable
  */
 #}
 {{ attach_library('flag_line/scoreboard') }}
-      {% set sum =  numJourneysComplete + numPassengersOnPlatforms + numPassengersOnTrains %}
+
+{% set sum =  numJourneysComplete + numPassengersOnPlatforms + numPassengersOnTrains %}
+
 <table>
   <th>{{ 'Count'|t }}</th>
   <th>{{ 'Value'|t }}</th>
