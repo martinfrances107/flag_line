@@ -74,9 +74,9 @@ drush en flag_line
 
 To create a new run with the name perf-test-1 using the console command
 
-console flag_line:run perf-test-1
+drupal flag_line:run perf-test-1
 
 The run can be configured by overriding the default parameters
 
-flag_line:run --update_period 2 --num_stations 100 --num_passengers 1000 perf-test-1
+drupal flag_line:run --update_period 2 --num_stations 100 --num_passengers 1000 perf-test-1
 

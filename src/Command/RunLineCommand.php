@@ -57,17 +57,19 @@ class RunLineCommand extends ContainerAwareCommand {
 
     $name = $run->name->value;
     $id = $run->id();
+    $output->writeln("Created run $name ( id = $id )");
 
-    $output->writeln("Starting run $name ( id = $id )");
-    $train_proc = new Process('console flag_line:startTrains ' . $id);
+    $train_proc = new Process('drupal flag_line:startTrains ' . $id);
     $train_proc->start();
 
-    $station_proc = new Process('console flag_line:openStations ' . $id);
+    $station_proc = new Process('drupal flag_line:openStations ' . $id);
     $station_proc->start();
 
     while ($train_proc->isRunning() && $station_proc->isRunning()) {
       $output->write($train_proc->getIncrementalOutput());
       $output->write($station_proc->getIncrementalOutput());
+      $output->write($train_proc->getIncrementalErrorOutput());
+      $output->write($station_proc->getIncrementalErrorOutput());
     }
 
   }
