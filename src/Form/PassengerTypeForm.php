@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\Form\PassengerTypeForm.
- */
-
 namespace Drupal\flag_line\Form;
 
 use Drupal\Core\Entity\EntityForm;

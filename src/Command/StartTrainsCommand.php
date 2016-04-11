@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\Command\StartTrainsCommand.
- */
-
 namespace Drupal\flag_line\Command;
 
 use Drupal\flag_line\Entity\Run;

@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\Plugin\Field\FieldType\PassengerListFieldType.
- */
-
 namespace Drupal\flag_line\Plugin\Field\FieldType;
 
 use Drupal\Component\Utility\Random;

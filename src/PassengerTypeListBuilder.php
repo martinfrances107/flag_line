@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\PassengerTypeListBuilder.
- */
-
 namespace Drupal\flag_line;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;

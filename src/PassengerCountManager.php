@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\PassengerCountManager.
- */
-
 namespace Drupal\flag_line;
 
 use Drupal\Core\Entity\Query\QueryFactory;

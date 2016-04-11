@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\Entity\Run.
- */
-
 namespace Drupal\flag_line\Entity;
 
 use Drupal\views\EntityViewsData;

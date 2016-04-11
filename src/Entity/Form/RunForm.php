@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\Entity\Form\RunForm.
- */
-
 namespace Drupal\flag_line\Entity\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;

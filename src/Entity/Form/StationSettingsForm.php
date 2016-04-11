@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\Entity\Form\StationSettingsForm.
- */
-
 namespace Drupal\flag_line\Entity\Form;
 
 use Drupal\Core\Form\FormBase;

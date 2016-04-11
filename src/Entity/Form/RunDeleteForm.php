@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\Entity\Form\RunDeleteForm.
- */
-
 namespace Drupal\flag_line\Entity\Form;
 
 use Drupal\Core\Entity\ContentEntityConfirmFormBase;

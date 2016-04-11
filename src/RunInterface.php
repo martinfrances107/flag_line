@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\RunInterface.
- */
-
 namespace Drupal\flag_line;
 
 use Drupal\Core\Entity\ContentEntityInterface;

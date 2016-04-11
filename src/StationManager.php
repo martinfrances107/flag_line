@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\StationManager.
- */
-
 namespace Drupal\flag_line;
 
 use Drupal\Core\Queue\QueueFactory;

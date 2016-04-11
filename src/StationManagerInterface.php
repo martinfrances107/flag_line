@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\StationManagerInterface.
- */
-
 namespace Drupal\flag_line;
 
 use Drupal\flag_line\RunInterface;

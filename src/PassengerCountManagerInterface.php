@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\PassengerCountManagerInterface.
- */
-
 namespace Drupal\flag_line;
 
 /**

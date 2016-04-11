@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\RunListBuilder.
- */
-
 namespace Drupal\flag_line;
 
 use Drupal\Core\Entity\EntityInterface;

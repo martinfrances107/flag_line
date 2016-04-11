@@ -1,10 +1,4 @@
 <?php
-
-/**
- * @file
- * Contains Drupal\flag_line\TrainManagerInterface.
- */
-
 namespace Drupal\flag_line;
 
 use Drupal\node\NodeInterface;
