@@ -11,6 +11,7 @@ use Drupal\Core\Url;
  * @ingroup flag_line
  */
 class RunDeleteForm extends ContentEntityConfirmFormBase {
+
   /**
    * {@inheritdoc}
    */

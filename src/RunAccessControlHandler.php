@@ -12,6 +12,7 @@ use Drupal\Core\Access\AccessResult;
  * @see \Drupal\flag_line\Entity\Run.
  */
 class RunAccessControlHandler extends EntityAccessControlHandler {
+
   /**
    * {@inheritdoc}
    */

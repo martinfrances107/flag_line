@@ -19,6 +19,7 @@ use Drupal\Core\TypedData\DataDefinition;
  * )
  */
 class PassengerListFieldType extends FieldItemBase {
+
   /**
    * {@inheritdoc}
    */

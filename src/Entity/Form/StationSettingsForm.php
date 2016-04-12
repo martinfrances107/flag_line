@@ -12,6 +12,7 @@ use Drupal\Core\Form\FormStateInterface;
  * @ingroup flag_line
  */
 class StationSettingsForm extends FormBase {
+
   /**
    * Returns a unique string identifying the form.
    *
@@ -33,7 +34,6 @@ class StationSettingsForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Empty implementation of the abstract submit class.
   }
-
 
   /**
    * Defines the settings form for Station entities.
