@@ -6,9 +6,9 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslationWrapper;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
-
+use Drupal\Core\StringTranslationTrait;
 /**
  * Plugin implementation of the 'passenger_list_field_type' field type.
  *
@@ -19,6 +19,8 @@ use Drupal\Core\TypedData\DataDefinition;
  * )
  */
 class PassengerListFieldType extends FieldItemBase {
+
+  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -37,7 +39,7 @@ class PassengerListFieldType extends FieldItemBase {
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     // Prevent early t() calls by using the TranslationWrapper.
     $properties['value'] = DataDefinition::create('string')
-      ->setLabel(new TranslationWrapper('Text value'))
+      ->setLabel(new TranslatableMarkup('Text value'))
       ->setSetting('case_sensitive', $field_definition->getSetting('case_sensitive'))
       ->setRequired(TRUE);
 
@@ -73,7 +75,7 @@ class PassengerListFieldType extends FieldItemBase {
         'value' => array(
           'Length' => array(
             'max' => $max_length,
-            'maxMessage' => t('%name: may not be longer than @max characters.', array(
+            'maxMessage' => $this->t('%name: may not be longer than @max characters.', array(
               '%name' => $this->getFieldDefinition()->getLabel(),
               '@max' => $max_length,
             )),
@@ -105,7 +107,7 @@ class PassengerListFieldType extends FieldItemBase {
       '#title' => t('Maximum length'),
       '#default_value' => $this->getSetting('max_length'),
       '#required' => TRUE,
-      '#description' => t('The maximum length of the field in characters.'),
+      '#description' => $this->t('The maximum length of the field in characters.'),
       '#min' => 1,
       '#disabled' => $has_data,
     );
