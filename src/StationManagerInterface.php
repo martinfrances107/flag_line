@@ -2,8 +2,6 @@
 
 namespace Drupal\flag_line;
 
-use Drupal\flag_line\RunInterface;
-
 /**
  * Methods to list and control stations on the line.
  *

@@ -4,7 +4,6 @@ namespace Drupal\flag_line;
 
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Queue\SuspendQueueException;
-use Drupal\flag_line\PlatformInterface;
 use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;
 use Psr\Log\LoggerInterface;
@@ -139,7 +138,8 @@ class TrainManager implements TrainManagerInterface {
         // release the item.
         $this->logger->error("$sn: Leaving passenger at the station!");
         $queue->releaseItem($item);
-      } catch (\Exception $e) {
+      }
+      catch (\Exception $e) {
         // In case of any other kind of exception, leave the item
         // in the queue to be processed again later.
         $this->logger->error("$sn: Unexpected exception loading passengers.");

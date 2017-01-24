@@ -5,8 +5,6 @@ namespace Drupal\flag_line;
 use Drupal\Core\Queue\QueueFactory;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
-use Drupal\flag_line\StationManagerInterface;
-use Drupal\flag_line\RunInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -40,7 +38,7 @@ class StationManager implements StationManagerInterface {
   /**
    * A factory for generating platform queues.
    *
-   * @var \Drupal\Core\Queue\QueueFactory $queueFactory.
+   * @var \Drupal\Core\Queue\QueueFactory
    */
   protected $queueFactory;
 

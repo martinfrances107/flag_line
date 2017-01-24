@@ -2,7 +2,6 @@
 
 namespace Drupal\flag_line;
 
-use Drupal\flag_line\PlatformInterface;
 use Drupal\Core\Queue\QueueInterface;
 
 /**
@@ -24,7 +23,7 @@ class Platform implements PlatformInterface {
   /**
    * A list of passengers waiting at the platform.
    *
-   * @param \Drupal\Core\Queue\QueueInterface $queue
+   * @var \Drupal\Core\Queue\QueueInterface
    */
   private $queue;
 

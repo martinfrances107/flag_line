@@ -40,7 +40,7 @@ class ScoreboardController extends ControllerBase {
   /**
    * Index.
    *
-   * @return []
+   * @return array
    *   Render from scoreboard theme.
    */
   public function index(RunInterface $run) {
