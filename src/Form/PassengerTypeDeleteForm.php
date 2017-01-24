@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\flag_line\Form;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;

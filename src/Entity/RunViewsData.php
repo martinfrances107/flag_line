@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\flag_line\Entity;
 
 use Drupal\views\EntityViewsData;

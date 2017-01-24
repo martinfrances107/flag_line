@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\flag_line;
 
 use Drupal\flag_line\RunInterface;

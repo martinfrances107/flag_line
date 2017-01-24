@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\flag_line\Controller;
 
 use Drupal\Core\Controller\ControllerBase;

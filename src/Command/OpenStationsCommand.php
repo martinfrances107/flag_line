@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\flag_line\Command;
 
 use Drupal\flag_line\Entity\Run;
