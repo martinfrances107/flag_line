@@ -9,6 +9,7 @@ use Drupal\views\EntityViewsDataInterface;
  * Provides Views data for Run entities.
  */
 class RunViewsData extends EntityViewsData implements EntityViewsDataInterface {
+
   /**
    * {@inheritdoc}
    */

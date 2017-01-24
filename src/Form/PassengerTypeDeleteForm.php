@@ -10,6 +10,7 @@ use Drupal\Core\Url;
  * Builds the form to delete Passenger type entities.
  */
 class PassengerTypeDeleteForm extends EntityConfirmFormBase {
+
   /**
    * {@inheritdoc}
    */

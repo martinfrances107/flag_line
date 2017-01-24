@@ -16,6 +16,7 @@ use Symfony\Component\Process\Process;
  * @package Drupal\flag_line
  */
 class RunLineCommand extends ContainerAwareCommand {
+
   /**
    * {@inheritdoc}
    */

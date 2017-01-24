@@ -11,6 +11,7 @@ use Drupal\Core\Form\FormStateInterface;
  * @package Drupal\flag_line\Form
  */
 class PassengerTypeForm extends EntityForm {
+
   /**
    * {@inheritdoc}
    */

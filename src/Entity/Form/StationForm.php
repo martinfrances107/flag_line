@@ -12,6 +12,7 @@ use Drupal\Core\Language\Language;
  * @ingroup flag_line
  */
 class StationForm extends ContentEntityForm {
+
   /**
    * {@inheritdoc}
    */
