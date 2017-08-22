@@ -88,4 +88,3 @@ flag_line.scoreboard_controller_index:
     _title: 'Scoreboard'
   requirements:
     _permission: 'access content'
-

@@ -35,12 +35,12 @@ function flag_line_theme() {
       'template' => 'run',
     ],
     'scoreboard' => [
-      'variables' => array(
-        'numTicketsIssued'    => 0,
+      'variables' => [
+        'numTicketsIssued' => 0,
         'numJourneysComplete' => 0,
         'numPassengersOnPlatforms' => 0,
         'numPassengersOnTrains' => 0,
-      ),
+      ],
     ],
   ];
 }

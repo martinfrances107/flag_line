@@ -19,4 +19,3 @@ settings:
   handler: 'default:run'
   handler_settings: {  }
 field_type: entity_reference
-

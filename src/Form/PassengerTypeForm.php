@@ -19,23 +19,23 @@ class PassengerTypeForm extends EntityForm {
     $form = parent::form($form, $form_state);
 
     $passenger_type = $this->entity;
-    $form['label'] = array(
+    $form['label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Label'),
       '#maxlength' => 255,
       '#default_value' => $passenger_type->label(),
       '#description' => $this->t("Label for the Passenger type."),
       '#required' => TRUE,
-    );
+    ];
 
-    $form['id'] = array(
+    $form['id'] = [
       '#type' => 'machine_name',
       '#default_value' => $passenger_type->id(),
-      '#machine_name' => array(
+      '#machine_name' => [
         'exists' => '\Drupal\flag_line\Entity\PassengerType::load',
-      ),
+      ],
       '#disabled' => !$passenger_type->isNew(),
-    );
+    ];
 
     /* You will need additional form elements for your custom properties. */
 

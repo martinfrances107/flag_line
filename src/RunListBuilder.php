@@ -36,9 +36,9 @@ class RunListBuilder extends EntityListBuilder {
     $row['name'] = \Drupal::l(
       $this->getLabel($entity),
       new Url(
-        'entity.run.edit_form', array(
+        'entity.run.edit_form', [
           'run' => $entity->id(),
-        )
+        ]
       )
     );
     $row['train_status'] = $this->t($entity->getTrainStatus());

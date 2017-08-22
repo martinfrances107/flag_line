@@ -15,4 +15,3 @@ view run entities:
   title: 'View Run entities'
 add train entities:
   title: 'Create new Train entities'
-

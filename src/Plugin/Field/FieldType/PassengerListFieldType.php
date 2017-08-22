@@ -28,11 +28,11 @@ class PassengerListFieldType extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function defaultStorageSettings() {
-    return array(
+    return [
       'max_length' => 255,
       'is_ascii' => FALSE,
       'case_sensitive' => FALSE,
-    ) + parent::defaultStorageSettings();
+    ] + parent::defaultStorageSettings();
   }
 
   /**
@@ -52,15 +52,15 @@ class PassengerListFieldType extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
-    $schema = array(
-      'columns' => array(
-        'value' => array(
+    $schema = [
+      'columns' => [
+        'value' => [
           'type' => $field_definition->getSetting('is_ascii') === TRUE ? 'varchar_ascii' : 'varchar',
           'length' => (int) $field_definition->getSetting('max_length'),
           'binary' => $field_definition->getSetting('case_sensitive'),
-        ),
-      ),
-    );
+        ],
+      ],
+    ];
 
     return $schema;
   }
@@ -73,17 +73,17 @@ class PassengerListFieldType extends FieldItemBase {
 
     if ($max_length = $this->getSetting('max_length')) {
       $constraint_manager = \Drupal::typedDataManager()->getValidationConstraintManager();
-      $constraints[] = $constraint_manager->create('ComplexData', array(
-        'value' => array(
-          'Length' => array(
+      $constraints[] = $constraint_manager->create('ComplexData', [
+        'value' => [
+          'Length' => [
             'max' => $max_length,
-            'maxMessage' => $this->t('%name: may not be longer than @max characters.', array(
+            'maxMessage' => $this->t('%name: may not be longer than @max characters.', [
               '%name' => $this->getFieldDefinition()->getLabel(),
               '@max' => $max_length,
-            )),
-          ),
-        ),
-      ));
+            ]),
+          ],
+        ],
+      ]);
     }
 
     return $constraints;
@@ -104,7 +104,7 @@ class PassengerListFieldType extends FieldItemBase {
   public function storageSettingsForm(array &$form, FormStateInterface $form_state, $has_data) {
     $elements = [];
 
-    $elements['max_length'] = array(
+    $elements['max_length'] = [
       '#type' => 'number',
       '#title' => t('Maximum length'),
       '#default_value' => $this->getSetting('max_length'),
@@ -112,7 +112,7 @@ class PassengerListFieldType extends FieldItemBase {
       '#description' => $this->t('The maximum length of the field in characters.'),
       '#min' => 1,
       '#disabled' => $has_data,
-    );
+    ];
 
     return $elements;
   }

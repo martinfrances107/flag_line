@@ -52,9 +52,9 @@ class Run extends ContentEntityBase implements RunInterface {
    */
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
-    $values += array(
+    $values += [
       'user_id' => \Drupal::currentUser()->id(),
-    );
+    ];
   }
 
   /**
@@ -204,21 +204,21 @@ class Run extends ContentEntityBase implements RunInterface {
       ->setSetting('handler', 'default')
       ->setDefaultValueCallback('Drupal\node\Entity\Node::getCurrentUserId')
       ->setTranslatable(TRUE)
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'author',
         'weight' => 0,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
         'weight' => 5,
-        'settings' => array(
+        'settings' => [
           'match_operator' => 'CONTAINS',
           'size' => '60',
           'autocomplete_type' => 'tags',
           'placeholder' => '',
-        ),
-      ))
+        ],
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -226,20 +226,20 @@ class Run extends ContentEntityBase implements RunInterface {
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Run entity.'))
       ->setRequired(TRUE)
-      ->setSettings(array(
+      ->setSettings([
         'max_length' => 50,
         'text_processing' => 0,
-      ))
+      ])
       ->setDefaultValue('')
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -5,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -5,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -248,15 +248,15 @@ class Run extends ContentEntityBase implements RunInterface {
       ->setDescription(t('The period in seconds over which events are define.'))
       ->setRequired(TRUE)
       ->setDefaultValue(5)
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -4,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -4,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -265,15 +265,15 @@ class Run extends ContentEntityBase implements RunInterface {
       ->setDescription(t('The number of passengers generated in the update period.'))
       ->setRequired(TRUE)
       ->setDefaultValue(50)
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -1,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -1,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -282,15 +282,15 @@ class Run extends ContentEntityBase implements RunInterface {
       ->setDescription(t('The number of stations.'))
       ->setRequired(TRUE)
       ->setDefaultValue(10)
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -1,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -1,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -299,11 +299,11 @@ class Run extends ContentEntityBase implements RunInterface {
       ->setDescription(t('One of the TRAIN constants indicating wheather the service has run.'))
       ->setRequired(TRUE)
       ->setDefaultValue(RunInterface::TRAINS_NOT_YET_RUN)
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -1,
-      ))
+      ])
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['stations_status'] = BaseFieldDefinition::create('string')
@@ -311,11 +311,11 @@ class Run extends ContentEntityBase implements RunInterface {
       ->setDescription(t('One of the STATIONS constants indicating the state of the stations.'))
       ->setRequired(TRUE)
       ->setDefaultValue(RunInterface::STATIONS_NOT_YET_OPENED)
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -1,
-      ))
+      ])
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['langcode'] = BaseFieldDefinition::create('language')

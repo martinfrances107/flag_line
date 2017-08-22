@@ -8,4 +8,3 @@ command:
             description: 'Begin train services as defined by the run.'
             arguments:
                 run_id: 'The run to use.'
-

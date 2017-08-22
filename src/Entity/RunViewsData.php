@@ -16,11 +16,11 @@ class RunViewsData extends EntityViewsData implements EntityViewsDataInterface {
   public function getViewsData() {
     $data = parent::getViewsData();
 
-    $data['run']['table']['base'] = array(
+    $data['run']['table']['base'] = [
       'field' => 'id',
       'title' => $this->t('Run'),
       'help' => $this->t('The Run ID.'),
-    );
+    ];
 
     return $data;
   }
