@@ -18,7 +18,7 @@ interface PassengerCountManagerInterface {
    * @return int
    *   The number counted.
    */
-  public function getNumTicketsIssued($run_id);
+  public function getNumTicketsIssued(int $run_id) : int;
 
   /**
    * Returns the number of passenger moved from platform to train to exit.
@@ -29,7 +29,7 @@ interface PassengerCountManagerInterface {
    * @return int
    *   The number counted.
    */
-  public function getNumJourneysComplete($run_id);
+  public function getNumJourneysComplete(int $run_id) : int;
 
   /**
    * Returns the number of passengers moved from platform on a train.
@@ -40,7 +40,7 @@ interface PassengerCountManagerInterface {
    * @return int
    *   The number counted.
    */
-  public function getNumPassengersOnTrains($run_id);
+  public function getNumPassengersOnTrains(int $run_id) : int;
 
   /**
    * The number created and placed on a platform.
@@ -51,6 +51,6 @@ interface PassengerCountManagerInterface {
    * @return int
    *   The number counted.
    */
-  public function getNumPassengersOnPlatforms($run_id);
+  public function getNumPassengersOnPlatforms(int $run_id) : int;
 
 }

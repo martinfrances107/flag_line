@@ -32,7 +32,7 @@ class PassengerCountManager implements PassengerCountManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getNumTicketsIssued($run_id) {
+  public function getNumTicketsIssued(Integer $run_id) : Integer {
     $query = clone $this->passengerQuery;
 
     return $query
@@ -44,7 +44,7 @@ class PassengerCountManager implements PassengerCountManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getNumJourneysComplete($run_id) {
+  public function getNumJourneysComplete(Integer $run_id) : Integer {
     $query = clone $this->passengerQuery;
 
     return $query
@@ -58,7 +58,7 @@ class PassengerCountManager implements PassengerCountManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getNumPassengersOnTrains($run_id) {
+  public function getNumPassengersOnTrains(Integer $run_id) : Integer {
     $query = clone $this->passengerQuery;
 
     return $query
@@ -72,7 +72,7 @@ class PassengerCountManager implements PassengerCountManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getNumPassengersOnPlatforms($run_id) {
+  public function getNumPassengersOnPlatforms(Integer $run_id) : Integer {
     $query = clone $this->passengerQuery;
 
     return $query

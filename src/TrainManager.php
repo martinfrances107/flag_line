@@ -90,7 +90,7 @@ class TrainManager implements TrainManagerInterface {
    * @return int
    *   The number of passegers loaded.
    */
-  private function loadPassengers(PlatformInterface $platform, NodeInterface $train, $wait = 5) {
+  private function loadPassengers(PlatformInterface $platform, NodeInterface $train, $wait = 5) : int {
 
     $num_passengers = 0;
     $sn = $train->title->value;
@@ -167,7 +167,7 @@ class TrainManager implements TrainManagerInterface {
    * @return int
    *   The number of passengers unloaded.
    */
-  private function unloadPassengers(NodeInterface $train, PlatformInterface $platform) {
+  private function unloadPassengers(NodeInterface $train, PlatformInterface $platform) : int {
     $sn = $train->title->value;
     $station_id = $platform->getStationId();
     $passengers = $this->getDepartingPassengers($train->id(), $station_id);
@@ -193,14 +193,14 @@ class TrainManager implements TrainManagerInterface {
    * Gets passengers leaving a train at a given station.
    *
    * @param int $train_id
-   *   The Train indentifer.
+   *   The Train indentifier.
    * @param int $station_id
-   *   The station identifer.
+   *   The station identifier.
    *
    * @return Drupal\flag_line\PassengerInterface[]
    *   The passengers.
    */
-  private function getDepartingPassengers($train_id, $station_id) {
+  private function getDepartingPassengers($train_id, $station_id) : array {
     $query = clone $this->passengerQuery;
 
     $passenger_ids = $query

@@ -2,6 +2,8 @@
 
 namespace Drupal\flag_line;
 
+use Drupal\Core\Queue\QueueInterface;
+
 /**
  * Defines platform accessor methods.
  *
@@ -15,7 +17,7 @@ interface PlatformInterface {
    * @return \Drupal\Core\Queue\QueueInterface
    *   The Queue.
    */
-  public function getQueue();
+  public function getQueue() : QueueInterface;
 
   /**
    * Returns the name of the platform.
@@ -23,14 +25,14 @@ interface PlatformInterface {
    * @return string
    *   The platform name.
    */
-  public function getName();
+  public function getName() : string;
 
   /**
    * Returns the station id associated with the platform.
    *
    * @return int
-   *   The station identifer.
+   *   The station identifier.
    */
-  public function getStationId();
+  public function getStationId() : int;
 
 }

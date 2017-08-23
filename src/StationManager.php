@@ -3,6 +3,7 @@
 namespace Drupal\flag_line;
 
 use Drupal\Core\Queue\QueueFactory;
+use Drupal\Core\Queue\QueueInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Psr\Log\LoggerInterface;
@@ -65,7 +66,7 @@ class StationManager implements StationManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getPlatforms($run_id, $num_stations, $upwards) {
+  public function getPlatforms(int $run_id, int $num_stations, bool $upwards) {
     // Return a cached list where possible, generate when needed.
     if ($upwards) {
       if (is_null($this->platformsUp)) {
@@ -84,7 +85,7 @@ class StationManager implements StationManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function populateStationsAtRandom($num_passengers, RunInterface $run) {
+  public function populateStationsAtRandom(int $num_passengers, RunInterface $run) {
     $run_id = $run->id();
     for ($i = 0; $i < $num_passengers; $i++) {
       $passenger = $this->generatePassengerAtRandom($run);
@@ -105,7 +106,7 @@ class StationManager implements StationManagerInterface {
    * @return \Drupal\flag_line\Entity\Passenger
    *   A new passenger.
    */
-  private function generatePassengerAtRandom(RunInterface $run) {
+  private function generatePassengerAtRandom(RunInterface $run) : Passenger {
     // Generate ticket information.
     $max = $run->getNumStations() - 1;
     $src = rand(1, $max);
@@ -148,19 +149,19 @@ class StationManager implements StationManagerInterface {
   /**
    * Returns a platform queue for a station and direction of travel.
    *
-   * Generates a list of paltform queues when first called and then caches them.
+   * Generates a list of platform queues when first called and then caches them.
    *
    * @param int $run_id
-   *   The run identifder.
+   *   The run identifier.
    * @param int $station_id
-   *   A station identifer.
+   *   A station identifier.
    * @param bool $upwards
    *   TRUE if the direction of travel is upwards.
    *
    * @return \Drupal\Core\Queue\QueueInterface
    *   The platform queue.
    */
-  private function getPlatformQueue($run_id, $station_id, $upwards) {
+  private function getPlatformQueue(int $run_id, int $station_id, bool $upwards) : QueueInterface {
     // Identify the platform.
     $name = $this->getPlatformName($run_id, $station_id, $upwards);
     $platform = $this->queueFactory->get($name, TRUE);
@@ -176,15 +177,17 @@ class StationManager implements StationManagerInterface {
    * It is used by both trains and passegers to identify the approiate
    * platform for a given direction of travel.
    *
+   * @param int $run_id
+   *   The run identifier.
    * @param int $station_id
    *   The station identifier.
    * @param bool $upwards
    *   Is the direction of travel up the line?
    *
    * @return string
-   *   The pltform name.
+   *   The platform name.
    */
-  private function getPlatformName($run_id, $station_id, $upwards) {
+  private function getPlatformName(int $run_id, int $station_id, bool $upwards) : string {
     $this->logger->notice("getting name run:$run_id");
     if ($upwards) {
       $name = "R:$run_id-S:$station_id-P:A";
@@ -199,13 +202,15 @@ class StationManager implements StationManagerInterface {
   /**
    * Returns a list of stations for a given direction of travel.
    *
+   * @param int $num_stations
+   *   Number of stations.
    * @param bool $upwards
    *   TRUE if the direction of travel up the line?
    *
    * @return array
-   *   An array of station ids.
+   *   An array of station identifiers.
    */
-  private function getStationIds($num_stations, $upwards) {
+  private function getStationIds(int $num_stations, bool $upwards) : array {
     if ($upwards) {
       $range = range(0, $num_stations - 1, 1);
     }
@@ -219,16 +224,18 @@ class StationManager implements StationManagerInterface {
   /**
    * Generate platforms queues for a given direction of travel.
    *
+   * @param int $run_id
+   *   The run identifier.
    * @param int $num_stations
    *   The number of stations on the line.
    * @param bool $upwards
-   *   Is the direciton of travel up the line?
+   *   Is the direction of travel up the line?
    *
    * @return \Drupal\flag_line\PlatformInterface[]
    *   An ordered list of platforms who order is based on the direction of
    *   travel.
    */
-  private function generatePlatforms($run_id, $num_stations, $upwards) {
+  private function generatePlatforms(int $run_id, int $num_stations, bool $upwards) : array {
     $platforms = [];
 
     foreach ($this->getStationIds($num_stations, $upwards) as $station_id) {
@@ -240,12 +247,14 @@ class StationManager implements StationManagerInterface {
   /**
    * Generate a new platform for a given direction of travel.
    *
+   * @param int $run_id
+   *   The run identifier.
    * @param int $station_id
-   *   The station identifer.
+   *   The station identifier.
    * @param bool $upwards
    *   Is the direction of travel up the line?
    */
-  private function generatePlatform($run_id, $station_id, $upwards) {
+  private function generatePlatform(int $run_id, int $station_id, bool $upwards) {
     $this->logger->notice("Generating platform run:$run_id");
     $platform_name = $this->getPlatformName($run_id, $station_id, $upwards);
     $queue = $this->queueFactory->get($platform_name);

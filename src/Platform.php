@@ -5,8 +5,6 @@ namespace Drupal\flag_line;
 use Drupal\Core\Queue\QueueInterface;
 
 /**
- * An implementation of the TrainInterface.
- *
  * Contains simple platform accessor methods.
  *
  * @package Drupal\flag_line
@@ -14,7 +12,7 @@ use Drupal\Core\Queue\QueueInterface;
 class Platform implements PlatformInterface {
 
   /**
-   * Human readable identifer for the platform.
+   * Human readable identifier for the platform.
    *
    * @var string
    */
@@ -28,7 +26,7 @@ class Platform implements PlatformInterface {
   private $queue;
 
   /**
-   * The station identifer.
+   * The station identifier.
    *
    * @var int
    */
@@ -40,7 +38,7 @@ class Platform implements PlatformInterface {
    * @param string $name
    *   The name of the platform.
    * @param int $station_id
-   *   The station_id.
+   *   The station identifier.
    * @param Drupal\Core\Queue\QueueInterface $queue
    *   A queue factory.
    */
@@ -53,21 +51,21 @@ class Platform implements PlatformInterface {
   /**
    * {@inheritdoc}
    */
-  public function getQueue() {
+  public function getQueue() : QueueInterface {
     return $this->queue;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getName() {
+  public function getName() : string {
     return $this->name;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getStationId() {
+  public function getStationId() : int {
     return $this->stationId;
   }
 

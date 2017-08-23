@@ -13,16 +13,16 @@ interface StationManagerInterface {
    * Returns a list of platforms for a given direction of travel.
    *
    * @param int $run_id
-   *   The run identifer.
+   *   The run identifier.
    * @param int $num_stations
    *   The number of stations on the line.
    * @param bool $upwards
-   *   Is the direciton of travel up the line?
+   *   Is the direction of travel up the line?
    *
    * @return \Drupal\flag_line\PlatformInterface[]
    *   An ordered list of platforms.
    */
-  public function getPlatforms($run_id, $num_stations, $upwards);
+  public function getPlatforms(int $run_id, int $num_stations, bool $upwards) : array;
 
   /**
    * Populates stations with new passengers.
@@ -34,6 +34,6 @@ interface StationManagerInterface {
    * @param \Drupal\flag_line\RunInterface $run
    *   The run identifier.
    */
-  public function populateStationsAtRandom($num_passengers, RunInterface $run);
+  public function populateStationsAtRandom(int $num_passengers, RunInterface $run);
 
 }

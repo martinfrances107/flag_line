@@ -32,15 +32,15 @@ interface RunInterface extends ContentEntityInterface, EntityOwnerInterface {
    * @return int
    *   The time in seconds.
    */
-  public function getUpdatePeriod();
+  public function getUpdatePeriod() : int;
 
   /**
    * Returns the state of the train service.
    *
-   * @return int
+   * @return string
    *   One of the TRAINS constants listed above.
    */
-  public function getTrainStatus();
+  public function getTrainStatus() : string;
 
   /**
    * Returns the number of stations.
@@ -48,15 +48,15 @@ interface RunInterface extends ContentEntityInterface, EntityOwnerInterface {
    * @return int
    *   Get the number of stations.
    */
-  public function getNumStations();
+  public function getNumStations() : int;
 
   /**
    * Returns the state of the stations.
    *
-   * @return int
+   * @return string
    *   One of the STATIONS constants listed above.
    */
-  public function getStationsStatus();
+  public function getStationsStatus() : string;
 
   /**
    * Returns the number of passengers generate in the update period.
@@ -64,7 +64,7 @@ interface RunInterface extends ContentEntityInterface, EntityOwnerInterface {
    * @return int
    *   The number of passengers.
    */
-  public function getNumPassengers();
+  public function getNumPassengers() : int;
 
   /**
    * Set the train status to be one of the TRAIN constants.
@@ -77,7 +77,7 @@ interface RunInterface extends ContentEntityInterface, EntityOwnerInterface {
    * @return static
    *   The object itself for chaining.
    */
-  public function setTrainStatus($status);
+  public function setTrainStatus(string $status);
 
   /**
    * Set the train status to be one of the STATIONS constants.
@@ -90,6 +90,6 @@ interface RunInterface extends ContentEntityInterface, EntityOwnerInterface {
    * @return static
    *   The object itself for chaining.
    */
-  public function setStationsStatus($status);
+  public function setStationsStatus(string $status);
 
 }

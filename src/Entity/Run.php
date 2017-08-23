@@ -88,35 +88,35 @@ class Run extends ContentEntityBase implements RunInterface {
   /**
    * {@inheritdoc}
    */
-  public function getUpdatePeriod() {
+  public function getUpdatePeriod() : int {
     return $this->get('update_period')->value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getNumStations() {
+  public function getNumStations() : int {
     return (int) $this->get('num_stations')->value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getNumPassengers() {
+  public function getNumPassengers() : int {
     return (int) $this->get('num_passengers')->value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getTrainStatus() {
+  public function getTrainStatus() : string {
     return $this->get('train_status')->value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getStationsStatus() {
+  public function getStationsStatus() : string {
     return $this->get('stations_status')->value;
   }
 
@@ -141,7 +141,7 @@ class Run extends ContentEntityBase implements RunInterface {
   /**
    * {@inheritdoc}
    */
-  public function setTrainStatus($status) {
+  public function setTrainStatus(string $status) {
     switch ($status) {
       case RunInterface::TRAINS_NOT_YET_RUN:
 
@@ -163,7 +163,7 @@ class Run extends ContentEntityBase implements RunInterface {
   /**
    * {@inheritdoc}
    */
-  public function setStationsStatus($status) {
+  public function setStationsStatus(string $status) {
     switch ($status) {
       case RunInterface::STATIONS_NOT_YET_OPENED:
 

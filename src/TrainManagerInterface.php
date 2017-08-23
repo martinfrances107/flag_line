@@ -29,6 +29,6 @@ interface TrainManagerInterface {
    * @return bool
    *   FLASE when there were problems encountered.
    */
-  public function runService(NodeInterface $train, array $platforms);
+  public function runService(NodeInterface $train, array $platforms) : bool;
 
 }
