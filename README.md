@@ -78,4 +78,8 @@ drupal flag_line:run perf-test-1
 
 The run can be configured by overriding the default parameters
 
-drupal flag_line:run --update_period 2 --num_stations 100 --num_passengers 1000 perf-test-1
+drupal flag_line:run \
+  --update_period 2 \
+  --num_stations 100 \
+  --num_passengers 1000 \
+  perf-test-1
