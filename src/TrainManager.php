@@ -48,7 +48,7 @@ class TrainManager implements TrainManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function runService(NodeInterface $train, array $platforms) : bool {
+  public function runService(NodeInterface $train, array $platforms) {
     // Keep counts.
     $num_loaded = 0;
     $num_unloaded = 0;

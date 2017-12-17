@@ -4,6 +4,8 @@ namespace Drupal\flag_line\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class PassengerTypeForm.
@@ -11,6 +13,32 @@ use Drupal\Core\Form\FormStateInterface;
  * @package Drupal\flag_line\Form
  */
 class PassengerTypeForm extends EntityForm {
+
+  /**
+   * The messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('messenger')
+    );
+  }
+
+  /**
+   * Constructs a ContentEntityForm object.
+   *
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger service.
+   */
+  public function __construct(MessengerInterface $messenger) {
+    $this->messenger = $messenger;
+  }
 
   /**
    * {@inheritdoc}
@@ -51,13 +79,13 @@ class PassengerTypeForm extends EntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Passenger type.', [
+        $this->messenger->addMessage($this->t('Created the %label Passenger type.', [
           '%label' => $passenger_type->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Passenger type.', [
+        $this->messenger->addMessage($this->t('Saved the %label Passenger type.', [
           '%label' => $passenger_type->label(),
         ]));
     }
