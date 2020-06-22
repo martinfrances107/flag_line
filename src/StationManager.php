@@ -66,7 +66,7 @@ class StationManager implements StationManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getPlatforms(int $run_id, int $num_stations, bool $upwards) {
+  public function getPlatforms(int $run_id, int $num_stations, bool $upwards): array {
     // Return a cached list where possible, generate when needed.
     if ($upwards) {
       if (is_null($this->platformsUp)) {
