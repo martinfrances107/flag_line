@@ -7,14 +7,17 @@ use Drupal\flag_line\RunInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Drupal\Console\Core\Command\ContainerAwareCommand;
+use Drupal\Console\Core\Command\Command;
 
 /**
  * Class OpenStationsCommand.
  *
- * @package Drupal\flag_line
+ * Drupal\Console\Annotations\DrupalCommand (
+ *     extension="flag_line",
+ *     extensionType="module"
+ * )
  */
-class OpenStationsCommand extends ContainerAwareCommand {
+class OpenStationsCommand extends Command {
 
   /**
    * Source and respoitory of information about the run.

@@ -5,7 +5,7 @@ namespace Drupal\flag_line\Command;
 use Drupal\flag_line\Entity\Run;
 use Drupal\flag_line\RunInterface;
 use Drupal\node\Entity\Node;
-use Drupal\Console\Core\Command\ContainerAwareCommand;
+use Drupal\Console\Core\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @package Drupal\flag_line
  */
-class StartTrainsCommand extends ContainerAwareCommand {
+class StartTrainsCommand extends Command {
 
   /**
    * Source and respoitory of information about the run.

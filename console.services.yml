@@ -1,0 +1,15 @@
+services:
+  flag_line.flag_line_run_line:
+    class: Drupal\flag_line\Command\RunLineCommand
+    tags:
+      - { name: drupal.command }
+
+  flag_line.flag_line_open_station_command:
+    class: Drupal\flag_line\Command\OpenStationsCommand
+    tags:
+      - { name: drupal.command }
+
+  flag_line.flag_line_start_train_command:
+    class: Drupal\flag_line\Command\StartTrainsCommand
+    tags:
+      - { name: drupal.command }

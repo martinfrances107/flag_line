@@ -3,19 +3,23 @@
 namespace Drupal\flag_line\Command;
 
 use Drupal\flag_line\Entity\Run;
-use Drupal\Console\Core\Command\ContainerAwareCommand;
+use Drupal\Console\Core\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
+use Drupal\Console\Core\Generator\GeneratorInterface;
 
 /**
  * Class RunLineCommand.
  *
- * @package Drupal\flag_line
+ * Drupal\Console\Annotations\DrupalCommand (
+ *     extension="flag_line",
+ *     extensionType="module"
+ * )
  */
-class RunLineCommand extends ContainerAwareCommand {
+class RunLineCommand extends Command {
 
   /**
    * {@inheritdoc}
