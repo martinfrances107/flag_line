@@ -1,6 +1,5 @@
-entity.run.add_form:
-  route_name: entity.run.add_form
-  title: 'Add Run'
+entity.run_entity.add_form:
+  route_name: entity.run_entity.add_form
+  title: 'Add Run Entity'
   appears_on:
-    - entity.run.collection
-    - entity.run.canonical
+    - entity.run_entity.collection

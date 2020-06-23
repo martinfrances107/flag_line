@@ -16,6 +16,6 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:run'
+  handler: 'default:run_entiy'
   handler_settings: {  }
 field_type: entity_reference

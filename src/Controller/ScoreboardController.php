@@ -3,7 +3,7 @@
 namespace Drupal\flag_line\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\flag_line\RunInterface;
+use Drupal\flag_line\RunEntityInterface;
 use Drupal\flag_line\PassengerCountManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -43,7 +43,7 @@ class ScoreboardController extends ControllerBase {
    * @return array
    *   Render from scoreboard theme.
    */
-  public function index(RunInterface $run) {
+  public function index(RunEntityInterface $run) {
 
     $run_id = $run->id();
     return [

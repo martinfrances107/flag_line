@@ -2,10 +2,10 @@
 
 namespace Drupal\flag_line\Command;
 
-use Drupal\flag_line\Entity\Run;
-use Drupal\flag_line\RunInterface;
+use Drupal\flag_line\Entity\RunEntity;
+use Drupal\flag_line\Entity\RunEntityInterface;
 use Drupal\node\Entity\Node;
-use Drupal\Console\Core\Command\Command;
+use Drupal\Console\Core\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @package Drupal\flag_line
  */
-class StartTrainsCommand extends Command {
+class StartTrainsCommand extends ContainerAwareCommand {
 
   /**
    * Source and respoitory of information about the run.
@@ -45,7 +45,7 @@ class StartTrainsCommand extends Command {
     parent::initialize($input, $output);
     // Validate the input paramters.
     $run_id = $input->getArgument('run_id');
-    $this->run = Run::load($run_id);
+    $this->run = RunEntity::load($run_id);
     // Validate run.
     if (is_null($this->run)) {
       $output->writeln("Starting trains -  could not find the run. ");
@@ -53,7 +53,7 @@ class StartTrainsCommand extends Command {
     }
 
     $status = $this->run->getTrainStatus();
-    if ($status !== RunInterface::TRAINS_NOT_YET_RUN) {
+    if ($status !== RunEntityInterface::TRAINS_NOT_YET_RUN) {
       $output->writeln("Train status: $status - cannot continue ");
       throw new \Exception($this->trans('Cannot restart and running or old run.'));
     }
@@ -74,11 +74,11 @@ class StartTrainsCommand extends Command {
     $num_stations = $this->run->getNumStations();
 
     /* @var $train_manager \Drupal\flag_line\TrainManagerInterface */
-    $train_manager = $this->getContainer()->get('flag_line.train_manager');
+    $train_manager = $this->get('flag_line.train_manager');
 
     // Just before train services start, update the run.
     $this->run
-      ->setTrainStatus(RunInterface::TRAINS_RUNNING)
+      ->setTrainStatus(RunEntityInterface::TRAINS_RUNNING)
       ->save();
 
     // Saving run generates an id.
@@ -86,7 +86,7 @@ class StartTrainsCommand extends Command {
 
     // Information about the line.
     /* @var $station_manager \Drupal\flag_line\StationManagerInterface */
-    $station_manager = $this->getContainer()->get('flag_line.station_manager');
+    $station_manager = $this->get('flag_line.station_manager');
     $platforms_up = $station_manager->getPlatforms($run_id, $num_stations, TRUE);
     $platforms_down = $station_manager->getPlatforms($run_id, $num_stations, FALSE);
 
@@ -115,7 +115,7 @@ class StartTrainsCommand extends Command {
 
     // Failure.
     $this->run
-      ->setTrainStatus(RunInterface::TRAINS_STOPPED)
+      ->setTrainStatus(RunEntityInterface::TRAINS_STOPPED)
       ->save();
   }
 

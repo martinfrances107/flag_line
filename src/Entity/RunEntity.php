@@ -4,48 +4,73 @@ namespace Drupal\flag_line\Entity;
 
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Entity\EditorialContentEntityBase;
+use Drupal\Core\Entity\RevisionableInterface;
+use Drupal\Core\Entity\EntityChangedTrait;
+use Drupal\Core\Entity\EntityPublishedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\flag_line\RunInterface;
 use Drupal\user\UserInterface;
 
 /**
- * Defines the Run entity.
+ * Defines the Run Entity entity.
  *
  * @ingroup flag_line
  *
  * @ContentEntityType(
- *   id = "run",
- *   label = @Translation("Run"),
+ *   id = "run_entity",
+ *   label = @Translation("Run Entity"),
  *   handlers = {
+ *     "storage" = "Drupal\flag_line\RunEntityStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\flag_line\RunListBuilder",
- *     "views_data" = "Drupal\flag_line\Entity\RunViewsData",
+ *     "list_builder" = "Drupal\flag_line\RunEntityListBuilder",
+ *     "views_data" = "Drupal\flag_line\Entity\RunEntityViewsData",
+ *     "translation" = "Drupal\flag_line\RunEntityTranslationHandler",
  *
  *     "form" = {
- *       "default" = "Drupal\flag_line\Entity\Form\RunForm",
- *       "add" = "Drupal\flag_line\Entity\Form\RunForm",
- *       "edit" = "Drupal\flag_line\Entity\Form\RunForm",
- *       "delete" = "Drupal\flag_line\Entity\Form\RunDeleteForm",
+ *       "default" = "Drupal\flag_line\Form\RunEntityForm",
+ *       "add" = "Drupal\flag_line\Form\RunEntityForm",
+ *       "edit" = "Drupal\flag_line\Form\RunEntityForm",
+ *       "delete" = "Drupal\flag_line\Form\RunEntityDeleteForm",
  *     },
- *     "access" = "Drupal\flag_line\RunAccessControlHandler",
+ *     "route_provider" = {
+ *       "html" = "Drupal\flag_line\RunEntityHtmlRouteProvider",
+ *     },
+ *     "access" = "Drupal\flag_line\RunEntityAccessControlHandler",
  *   },
- *   base_table = "run",
- *   admin_permission = "administer Run entity",
+ *   base_table = "run_entity",
+ *   data_table = "run_entity_field_data",
+ *   revision_table = "run_entity_revision",
+ *   revision_data_table = "run_entity_field_revision",
+ *   translatable = TRUE,
+ *   admin_permission = "administer run entity entities",
  *   entity_keys = {
  *     "id" = "id",
+ *     "revision" = "vid",
  *     "label" = "name",
- *     "uuid" = "uuid"
+ *     "uuid" = "uuid",
+ *     "uid" = "user_id",
+ *     "langcode" = "langcode",
+ *     "published" = "status",
  *   },
  *   links = {
- *     "canonical" = "/admin/run/{run}",
- *     "edit-form" = "/admin/run/{run}/edit",
- *     "delete-form" = "/admin/run/{run}/delete"
+ *     "canonical" = "/admin/structure/run_entity/{run_entity}",
+ *     "add-form" = "/admin/structure/run_entity/add",
+ *     "edit-form" = "/admin/structure/run_entity/{run_entity}/edit",
+ *     "delete-form" = "/admin/structure/run_entity/{run_entity}/delete",
+ *     "version-history" = "/admin/structure/run_entity/{run_entity}/revisions",
+ *     "revision" = "/admin/structure/run_entity/{run_entity}/revisions/{run_entity_revision}/view",
+ *     "revision_revert" = "/admin/structure/run_entity/{run_entity}/revisions/{run_entity_revision}/revert",
+ *     "revision_delete" = "/admin/structure/run_entity/{run_entity}/revisions/{run_entity_revision}/delete",
+ *     "translation_revert" = "/admin/structure/run_entity/{run_entity}/revisions/{run_entity_revision}/revert/{langcode}",
+ *     "collection" = "/admin/structure/run_entity",
  *   },
- *   field_ui_base_route = "run.settings"
+ *   field_ui_base_route = "run_entity.settings"
  * )
  */
-class Run extends ContentEntityBase implements RunInterface {
+class RunEntity extends EditorialContentEntityBase implements RunEntityInterface {
+
+  use EntityChangedTrait;
+  use EntityPublishedTrait;
 
   /**
    * {@inheritdoc}
@@ -60,6 +85,59 @@ class Run extends ContentEntityBase implements RunInterface {
   /**
    * {@inheritdoc}
    */
+  protected function urlRouteParameters($rel) {
+    $uri_route_parameters = parent::urlRouteParameters($rel);
+
+    if ($rel === 'revision_revert' && $this instanceof RevisionableInterface) {
+      $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
+    }
+    elseif ($rel === 'revision_delete' && $this instanceof RevisionableInterface) {
+      $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
+    }
+
+    return $uri_route_parameters;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preSave(EntityStorageInterface $storage) {
+    parent::preSave($storage);
+
+    foreach (array_keys($this->getTranslationLanguages()) as $langcode) {
+      $translation = $this->getTranslation($langcode);
+
+      // If no owner has been set explicitly, make the anonymous user the owner.
+      if (!$translation->getOwner()) {
+        $translation->setOwnerId(0);
+      }
+    }
+
+    // If no revision author has been set explicitly,
+    // make the run_entity owner the revision author.
+    if (!$this->getRevisionUser()) {
+      $this->setRevisionUserId($this->getOwnerId());
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getName() {
+    return $this->get('name')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setName($name) {
+    $this->set('name', $name);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getCreatedTime() {
     return $this->get('created')->value;
   }
@@ -67,8 +145,9 @@ class Run extends ContentEntityBase implements RunInterface {
   /**
    * {@inheritdoc}
    */
-  public function getChangedTime() {
-    return $this->get('changed')->value;
+  public function setCreatedTime($timestamp) {
+    $this->set('created', $timestamp);
+    return $this;
   }
 
   /**
@@ -84,8 +163,7 @@ class Run extends ContentEntityBase implements RunInterface {
   public function getOwnerId() {
     return $this->get('user_id')->target_id;
   }
-
-  /**
+ /**
    * {@inheritdoc}
    */
   public function getUpdatePeriod() : int {
@@ -125,7 +203,6 @@ class Run extends ContentEntityBase implements RunInterface {
    */
   public function setOwnerId($uid) {
     $this->set('user_id', $uid);
-
     return $this;
   }
 
@@ -134,20 +211,18 @@ class Run extends ContentEntityBase implements RunInterface {
    */
   public function setOwner(UserInterface $account) {
     $this->set('user_id', $account->id());
-
     return $this;
   }
-
   /**
    * {@inheritdoc}
    */
   public function setTrainStatus(string $status) {
     switch ($status) {
-      case RunInterface::TRAINS_NOT_YET_RUN:
+      case RunEntityInterface::TRAINS_NOT_YET_RUN:
 
-      case RunInterface::TRAINS_RUNNING:
+      case RunEntityInterface::TRAINS_RUNNING:
 
-      case RunInterface::TRAINS_STOPPED:
+      case RunEntityInterface::TRAINS_STOPPED:
 
         $this->set('train_status', $status);
         break;
@@ -165,11 +240,11 @@ class Run extends ContentEntityBase implements RunInterface {
    */
   public function setStationsStatus(string $status) {
     switch ($status) {
-      case RunInterface::STATIONS_NOT_YET_OPENED:
+      case RunEntityInterface::STATIONS_NOT_YET_OPENED:
 
-      case RunInterface::STATIONS_OPEN:
+      case RunEntityInterface::STATIONS_OPEN:
 
-      case RunInterface::STATIONS_CLOSED:
+      case RunEntityInterface::STATIONS_CLOSED:
 
         $this->set('stations_status', $status);
         break;
@@ -186,23 +261,17 @@ class Run extends ContentEntityBase implements RunInterface {
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
-    $fields['id'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('ID'))
-      ->setDescription(t('The ID of the Run entity.'))
-      ->setReadOnly(TRUE);
+    $fields = parent::baseFieldDefinitions($entity_type);
 
-    $fields['uuid'] = BaseFieldDefinition::create('uuid')
-      ->setLabel(t('UUID'))
-      ->setDescription(t('The UUID of the Run entity.'))
-      ->setReadOnly(TRUE);
+    // Add the published field.
+    $fields += static::publishedBaseFieldDefinitions($entity_type);
 
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
-      ->setDescription(t('The user ID of author of the Run entity.'))
+      ->setDescription(t('The user ID of author of the Run Entity entity.'))
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
-      ->setDefaultValueCallback('Drupal\node\Entity\Node::getCurrentUserId')
       ->setTranslatable(TRUE)
       ->setDisplayOptions('view', [
         'label' => 'hidden',
@@ -224,8 +293,8 @@ class Run extends ContentEntityBase implements RunInterface {
 
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
-      ->setDescription(t('The name of the Run entity.'))
-      ->setRequired(TRUE)
+      ->setDescription(t('The name of the Run Entity entity.'))
+      ->setRevisionable(TRUE)
       ->setSettings([
         'max_length' => 50,
         'text_processing' => 0,
@@ -234,16 +303,17 @@ class Run extends ContentEntityBase implements RunInterface {
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
-        'weight' => -5,
+        'weight' => -4,
       ])
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-        'weight' => -5,
+        'weight' => -4,
       ])
       ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
 
-    $fields['update_period'] = BaseFieldDefinition::create('integer')
+      $fields['update_period'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Update Period'))
       ->setDescription(t('The period in seconds over which events are define.'))
       ->setRequired(TRUE)
@@ -298,7 +368,7 @@ class Run extends ContentEntityBase implements RunInterface {
       ->setLabel(t('Trains'))
       ->setDescription(t('One of the TRAIN constants indicating wheather the service has run.'))
       ->setRequired(TRUE)
-      ->setDefaultValue(RunInterface::TRAINS_NOT_YET_RUN)
+      ->setDefaultValue(RunEntityInterface::TRAINS_NOT_YET_RUN)
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
@@ -310,7 +380,7 @@ class Run extends ContentEntityBase implements RunInterface {
       ->setLabel(t('Stations'))
       ->setDescription(t('One of the STATIONS constants indicating the state of the stations.'))
       ->setRequired(TRUE)
-      ->setDefaultValue(RunInterface::STATIONS_NOT_YET_OPENED)
+      ->setDefaultValue(RunEntityInterface::STATIONS_NOT_YET_OPENED)
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
@@ -318,9 +388,12 @@ class Run extends ContentEntityBase implements RunInterface {
       ])
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['langcode'] = BaseFieldDefinition::create('language')
-      ->setLabel(t('Language code'))
-      ->setDescription(t('The language code for the Run entity.'));
+
+    $fields['status']->setDescription(t('A boolean indicating whether the Run Entity is published.'))
+      ->setDisplayOptions('form', [
+        'type' => 'boolean_checkbox',
+        'weight' => -3,
+      ]);
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))
@@ -329,6 +402,13 @@ class Run extends ContentEntityBase implements RunInterface {
     $fields['changed'] = BaseFieldDefinition::create('changed')
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the entity was last edited.'));
+
+    $fields['revision_translation_affected'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Revision translation affected'))
+      ->setDescription(t('Indicates if the last edit of a translation belongs to current revision.'))
+      ->setReadOnly(TRUE)
+      ->setRevisionable(TRUE)
+      ->setTranslatable(TRUE);
 
     return $fields;
   }

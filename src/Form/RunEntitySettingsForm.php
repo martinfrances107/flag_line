@@ -1,18 +1,16 @@
 <?php
 
-namespace Drupal\flag_line\Entity\Form;
+namespace Drupal\flag_line\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class RunSettingsForm.
- *
- * @package Drupal\flag_line\Form
+ * Class RunEntitySettingsForm.
  *
  * @ingroup flag_line
  */
-class RunSettingsForm extends FormBase {
+class RunEntitySettingsForm extends FormBase {
 
   /**
    * Returns a unique string identifying the form.
@@ -21,7 +19,7 @@ class RunSettingsForm extends FormBase {
    *   The unique string identifying the form.
    */
   public function getFormId() {
-    return 'Run_settings';
+    return 'runentity_settings';
   }
 
   /**
@@ -37,7 +35,7 @@ class RunSettingsForm extends FormBase {
   }
 
   /**
-   * Defines the settings form for Run entities.
+   * Defines the settings form for Run Entity entities.
    *
    * @param array $form
    *   An associative array containing the structure of the form.
@@ -48,7 +46,7 @@ class RunSettingsForm extends FormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['Run_settings']['#markup'] = 'Settings form for Run entities. Manage field settings here.';
+    $form['runentity_settings']['#markup'] = 'Settings form for Run Entity entities. Manage field settings here.';
     return $form;
   }
 

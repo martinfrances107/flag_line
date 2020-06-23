@@ -2,6 +2,8 @@
 
 namespace Drupal\flag_line;
 
+use Drupal\flag_line\Entity\RunEntityInterface;
+
 /**
  * Methods to list and control stations on the line.
  *
@@ -31,9 +33,9 @@ interface StationManagerInterface {
    *
    * @param int $num_passengers
    *   The number of passenger to add to stations.
-   * @param \Drupal\flag_line\RunInterface $run
+   * @param \Drupal\flag_line\Entity\RunEntityInterface $run
    *   The run identifier.
    */
-  public function populateStationsAtRandom(int $num_passengers, RunInterface $run);
+  public function populateStationsAtRandom(int $num_passengers, RunEntityInterface $run);
 
 }

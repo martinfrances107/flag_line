@@ -2,14 +2,13 @@
 
 namespace Drupal\flag_line\Command;
 
-use Drupal\flag_line\Entity\Run;
+use Drupal\flag_line\Entity\RunEntity;
 use Drupal\Console\Core\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
-use Drupal\Console\Core\Generator\GeneratorInterface;
 
 /**
  * Class RunLineCommand.
@@ -51,8 +50,8 @@ class RunLineCommand extends Command {
     $values['num_passengers'] = $input->getOption('num_passengers');
     $values['num_stations'] = $input->getOption('num_stations');
 
-    /** @var Drupal\flag_line\Entity\Run $run */
-    $run = Run::create($values);
+    /** @var Drupal\flag_line\Entity\RunEntity $run */
+    $run = RunEntity::create($values);
     $run->save();
 
     $name = $run->name->value;

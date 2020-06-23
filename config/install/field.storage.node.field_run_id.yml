@@ -10,7 +10,7 @@ field_name: field_run_id
 entity_type: node
 type: entity_reference
 settings:
-  target_type: run
+  target_type: run_entity
 module: core
 locked: false
 cardinality: 1

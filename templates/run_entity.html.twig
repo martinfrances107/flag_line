@@ -1,0 +1,22 @@
+{#
+/**
+ * @file run_entity.html.twig
+ * Default theme implementation to present Run Entity data.
+ *
+ * This template is used when viewing Run Entity pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_run_entity()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('run_entity') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>

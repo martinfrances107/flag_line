@@ -1,11 +1,13 @@
-# Run menu items definition
-entity.run.collection:
-  title: 'Run list'
-  route_name: entity.run.collection
-  description: 'List Run entities'
+# Run Entity menu items definition
+entity.run_entity.collection:
+  title: 'Run Entity list'
+  route_name: entity.run_entity.collection
+  description: 'List Run Entity entities'
+  parent: system.admin_structure
+  weight: 100
 
-run.admin.structure.settings:
-  title: Run settings
-  description: 'Configure Run entities'
-  route_name: run.settings
+run_entity.admin.structure.settings:
+  title: 'Run Entity settings'
+  description: 'Configure Run Entity entities'
+  route_name: run_entity.settings
   parent: system.admin_structure

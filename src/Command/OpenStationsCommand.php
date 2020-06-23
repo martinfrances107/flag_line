@@ -2,12 +2,12 @@
 
 namespace Drupal\flag_line\Command;
 
-use Drupal\flag_line\Entity\Run;
-use Drupal\flag_line\RunInterface;
+use Drupal\flag_line\Entity\RunEntity;
+use Drupal\flag_line\Entity\RunEntityInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Drupal\Console\Core\Command\Command;
+use Drupal\Console\Core\Command\ContainerAwareCommand;
 
 /**
  * Class OpenStationsCommand.
@@ -17,12 +17,12 @@ use Drupal\Console\Core\Command\Command;
  *     extensionType="module"
  * )
  */
-class OpenStationsCommand extends Command {
+class OpenStationsCommand extends ContainerAwareCommand {
 
   /**
    * Source and respoitory of information about the run.
    *
-   * @var Drupal\flag_line\RunInterface
+   * @var Drupal\flag_line\RunEntityInterface
    */
   private $run;
 
@@ -50,7 +50,7 @@ class OpenStationsCommand extends Command {
     // Bodge .... must find a better way to solve entity caching!
     sleep(4);
 
-    $run = Run::load($run_id);
+    $run = RunEntity::load($run_id);
     // Validate run.
     if (is_null($run)) {
       throw new \RunTimeException($this->trans('Cannot find that run'));
@@ -58,7 +58,7 @@ class OpenStationsCommand extends Command {
 
     // Wait a while, until the other process starts.
     $count = 0;
-    while ($run->getTrainStatus(TRUE) === RunInterface::TRAINS_NOT_YET_RUN && $count < 4) {
+    while ($run->getTrainStatus(TRUE) === RunEntityInterface::TRAINS_NOT_YET_RUN && $count < 4) {
       sleep(1);
       $count++;
       // TODO find a better way to refresh the TrainStatus.
@@ -66,7 +66,7 @@ class OpenStationsCommand extends Command {
     }
 
     $status = $run->getTrainStatus();
-    if ($status !== RunInterface::TRAINS_RUNNING) {
+    if ($status !== RunEntityInterface::TRAINS_RUNNING) {
       $output->writeln("\nStation process error: trains status = $status - cannot initialize.");
       throw new \RunTimeException($this->trans('Trains must be running.'));
     }
@@ -87,11 +87,11 @@ class OpenStationsCommand extends Command {
     $num_passengers = $this->run->getNumPassengers();
 
     /* @var $station_manager \Drupal\flag_line\StationManagerInterface */
-    $station_manager = $this->getContainer()->get('flag_line.station_manager');
+    $station_manager = $this->get('flag_line.station_manager');
 
     // Open stations to passengers.
     $this->run
-      ->setStationsStatus(RunInterface::STATIONS_OPEN)
+      ->setStationsStatus(RunEntityInterface::STATIONS_OPEN)
       ->save();
 
     // Continuous operations.
@@ -105,7 +105,7 @@ class OpenStationsCommand extends Command {
     catch (Exception $e) {
       $output->writeln("$e");
       $this->run
-        ->setStationsStatus(RunInterface::STATIONS_CLOSED)
+        ->setStationsStatus(RunEntityInterface::STATIONS_CLOSED)
         ->save();
     }
   }

@@ -7,6 +7,7 @@ use Drupal\Core\Queue\QueueInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Psr\Log\LoggerInterface;
+use Drupal\flag_line\Entity\RunEntityInterface;
 
 /**
  * An instance of the station manager interface.
@@ -85,7 +86,7 @@ class StationManager implements StationManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function populateStationsAtRandom(int $num_passengers, RunInterface $run) {
+  public function populateStationsAtRandom(int $num_passengers, RunEntityInterface $run) {
     $run_id = $run->id();
     for ($i = 0; $i < $num_passengers; $i++) {
       $passenger = $this->generatePassengerAtRandom($run);
@@ -100,13 +101,13 @@ class StationManager implements StationManagerInterface {
    * Generate a random ticket and passenger type based on information extracted
    * from the current run.
    *
-   * @param \Drupal\flag_line\RunInterface $run
+   * @param \Drupal\flag_line\Entity\RunEntityInterface $run
    *   The run identifier.
    *
    * @return \Drupal\flag_line\Entity\Passenger
    *   A new passenger.
    */
-  private function generatePassengerAtRandom(RunInterface $run) : Passenger {
+  private function generatePassengerAtRandom(RunEntityInterface $run) : Node {
     // Generate ticket information.
     $max = $run->getNumStations() - 1;
     $src = rand(1, $max);

@@ -1,17 +1,31 @@
-add run entities:
-  title: 'Create new Run entities'
+add run entity entities:
+  title: 'Create new Run Entity entities'
 
-administer run entities:
-  title: 'Administer Run entities'
-  description: 'Allow to access the administration form to configure Run entities.'
+administer run entity entities:
+  title: 'Administer Run Entity entities'
+  description: 'Allow to access the administration form to configure Run Entity entities.'
+  restrict access: true
 
-delete run entities:
-  title: 'Delete Run entities'
+delete run entity entities:
+  title: 'Delete Run Entity entities'
 
-edit run entities:
-  title: 'Edit Run entities'
+edit run entity entities:
+  title: 'Edit Run Entity entities'
 
-view run entities:
-  title: 'View Run entities'
-add train entities:
-  title: 'Create new Train entities'
+view published run entity entities:
+  title: 'View published Run Entity entities'
+
+view unpublished run entity entities:
+  title: 'View unpublished Run Entity entities'
+
+view all run entity revisions:
+  title: 'View all Run Entity revisions'
+
+revert all run entity revisions:
+  title: 'Revert all Run Entity revisions'
+  description: 'Role requires permission <em>view Run Entity revisions</em> and <em>edit rights</em> for run entity entities in question or <em>administer run entity entities</em>.'
+
+delete all run entity revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Run Entity revisions</em> and <em>delete rights</em> for run entity entities in question or <em>administer run entity entities</em>.'
+

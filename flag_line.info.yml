@@ -1,7 +1,7 @@
 name: flag_line
 type: module
 description: Seneraio testing
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 package: Flags
 dependencies:
   - flag

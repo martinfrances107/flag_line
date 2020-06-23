@@ -29,11 +29,6 @@ function flag_line_help($route_name, RouteMatchInterface $route_match) {
 function flag_line_theme() {
 
   return [
-    'run' => [
-      'render element' => 'elements',
-      'file' => 'run.page.inc',
-      'template' => 'run',
-    ],
     'scoreboard' => [
       'variables' => [
         'numTicketsIssued' => 0,

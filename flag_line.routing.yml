@@ -1,53 +1,3 @@
-
-# Run routing definition
-entity.run.canonical:
-  path: '/admin/run/{run}'
-  defaults:
-    _entity_view: 'run'
-    _title: 'Run'
-  requirements:
-    _entity_access: 'run.view'
-
-entity.run.collection:
-  path: '/admin/run'
-  defaults:
-    _entity_list: 'run'
-    _title: 'Run list'
-  requirements:
-    _permission: 'view run entities'
-
-entity.run.add_form:
-  path: '/admin/run/add'
-  defaults:
-    _entity_form: run.add
-    _title: 'Add Run'
-  requirements:
-    _permission: 'add run entities'
-
-entity.run.edit_form:
-  path: '/admin/run/{run}/edit'
-  defaults:
-    _entity_form: run.edit
-    _title: 'Edit Run'
-  requirements:
-    _permission: 'edit run entities'
-
-entity.run.delete_form:
-  path: '/admin/run/{run}/delete'
-  defaults:
-    _entity_form: run.delete
-    _title: 'Delete Run'
-  requirements:
-    _permission: 'delete run entities'
-
-run.settings:
-  path: 'admin/structure/run'
-  defaults:
-   _form: '\Drupal\flag_line\Entity\Form\RunSettingsForm'
-   _title: 'Run settings'
-  requirements:
-    _permission: 'administer run entities'
-
 # PassengerType routing definition
 entity.passenger_type.collection:
   path: '/admin/structure/passenger_type'
@@ -82,7 +32,7 @@ entity.passenger_type.delete_form:
     _permission: 'administer site configuration'
 
 flag_line.scoreboard_controller_index:
-  path: '/flag_line/scoreboard/{run}'
+  path: '/flag_line/scoreboard/{run_entity}'
   defaults:
     _controller: '\Drupal\flag_line\Controller\ScoreboardController::index'
     _title: 'Scoreboard'
