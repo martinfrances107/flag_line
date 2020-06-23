@@ -89,8 +89,6 @@ class PassengerTypeForm extends EntityForm {
           '%label' => $passenger_type->label(),
         ]));
     }
-    // TODO: Drupal Rector Notice: Please delete the following comment after you've made any necessary changes.
-    // Please confirm that `$passenger_type` is an instance of `Drupal\Core\Entity\EntityInterface`. Only the method name and not the class name was checked for this replacement, so this may be a false positive.
     $form_state->setRedirectUrl($passenger_type->toUrl('collection'));
   }
 

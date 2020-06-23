@@ -29,7 +29,6 @@ interface RunEntityInterface extends ContentEntityInterface, RevisionLogInterfac
   const STATIONS_OPEN = 'OPEN';
   const STATIONS_CLOSED = 'CLOSED';
 
-
   /**
    * Returns the update period over which events are defined.
    *

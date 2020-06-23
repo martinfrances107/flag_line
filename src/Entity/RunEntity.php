@@ -163,7 +163,8 @@ class RunEntity extends EditorialContentEntityBase implements RunEntityInterface
   public function getOwnerId() {
     return $this->get('user_id')->target_id;
   }
- /**
+
+  /**
    * {@inheritdoc}
    */
   public function getUpdatePeriod() : int {
@@ -213,6 +214,7 @@ class RunEntity extends EditorialContentEntityBase implements RunEntityInterface
     $this->set('user_id', $account->id());
     return $this;
   }
+
   /**
    * {@inheritdoc}
    */
@@ -313,7 +315,7 @@ class RunEntity extends EditorialContentEntityBase implements RunEntityInterface
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
 
-      $fields['update_period'] = BaseFieldDefinition::create('integer')
+    $fields['update_period'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Update Period'))
       ->setDescription(t('The period in seconds over which events are define.'))
       ->setRequired(TRUE)
@@ -387,7 +389,6 @@ class RunEntity extends EditorialContentEntityBase implements RunEntityInterface
         'weight' => -1,
       ])
       ->setDisplayConfigurable('view', TRUE);
-
 
     $fields['status']->setDescription(t('A boolean indicating whether the Run Entity is published.'))
       ->setDisplayOptions('form', [

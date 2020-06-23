@@ -28,7 +28,6 @@ class RunEntityAccessControlHandler extends EntityAccessControlHandler {
           return AccessResult::allowedIfHasPermission($account, 'view unpublished run entity entities');
         }
 
-
         return AccessResult::allowedIfHasPermission($account, 'view published run entity entities');
 
       case 'update':
@@ -50,6 +49,5 @@ class RunEntityAccessControlHandler extends EntityAccessControlHandler {
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
     return AccessResult::allowedIfHasPermission($account, 'add run entity entities');
   }
-
 
 }
