@@ -1,4 +1,4 @@
-name: flag_line
+name: Flag Line
 type: module
 description: Seneraio testing
 core_version_requirement: ^8.8 || ^9
