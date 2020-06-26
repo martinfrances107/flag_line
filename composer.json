@@ -4,11 +4,11 @@
   "description": "Seneraio testing",
   "keywords": ["Drupal, Flag"],
   "license": "GPL-2.0+",
-  "homepage": "https://github.com/martinfrances107/flag_line.git",
+  "homepage": "https://github.com/martinfrances107/flag_line",
   "minimum-stability": "dev",
   "support": {
-    "issues": "http://drupal.org/project/issues/flag_line",
-    "source": "http://cgit.drupalcode.org/flag_line"
+    "issues": "https://github.com/martinfrances107/flag_line/issues",
+    "source": "https://github.com/martinfrances107/flag_line.git"
   },
   "require": {
     "drupal/console": "dev-master"
